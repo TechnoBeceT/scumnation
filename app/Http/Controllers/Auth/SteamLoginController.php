@@ -2,35 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Exception;
 use App\Models\User;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use kanalumaddela\LaravelSteamLogin\Http\Controllers\AbstractSteamLoginController;
 use kanalumaddela\LaravelSteamLogin\SteamUser;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use JWTAuth;
+use Cookie;
 
 class SteamLoginController extends AbstractSteamLoginController
 {
-
-    /**
-     * {@inheritdoc}
-     *
-     * @throws \Exception
-     */
-    public function authenticate()
-    {
-        if ($this->steam->validated()) {
-            $result = $this->authenticated($this->request, $this->steam->getPlayer());
-
-            if (!empty($result)) {
-                return $result;
-            }
-        } else {
-            throw new Exception('Steam Login failed. Response: '.$this->steam->getOpenIdResponse());
-        }
-
-        return $this->steam->previousPage();
-    }
+    use ApiResponser;
 
 
     public function authenticated(Request $request, SteamUser $steamUser)
@@ -40,24 +23,75 @@ class SteamLoginController extends AbstractSteamLoginController
 
         // if the user doesn't exist, create them
         if (!$user) {
-            return response()->json("First login our server please", 200);
+            return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.userNotFound')], 200);
         }else {
             $steamUser->getUserInfo(); // retrieve and set user info pulled from steam
             $user->avatar = $steamUser->avatarFull;
-            $user->nickname = $steamUser->steam_name;
+            $user->steam_name = $steamUser->name;
             $user->save();
         }
 
-        
-
         // login the user using the Auth facade
-        Auth::login($user, true);
+        try {
+            if (!$token = JWTAuth::fromUser($user)) {
+                return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.invalidCredentials')], 200);
+            }
+        } catch (JWTException $e) {
+            return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.notCreateToken')], 200);
+        }
+        //Create Cookie With Token
+        $cookie = Cookie::queue(Cookie::make('token', $token, config('jwt.ttl'), '/', null, true, true));
+        //Return Logged In User
+        return $this->returnLoggedInUser($user);
     }
 
-    public function logout () {
-        //logout user
+    /**
+     * Get the authenticated User.
+     *
+     * @return App\Traits\ApiResponser\ReturnLoggedInUser
+     */
+    public function isLoggedIn()
+    {
+        if (auth()->check()) {
+            return $this->returnLoggedInUser(auth()->user());
+        } else {
+            return $this->successResponse(['isLoggedIn' => false], 200);
+        }
+    }
+
+    public function loginForPostman()
+    {
+        // find user by their steam account id, example assumes `steam_account_id` on `users` table
+        $user = User::where('id', 1)->first();
+
+        // if the user doesn't exist, create them
+        if (!$user) {
+            return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.userNotFound')], 200);
+        }
+
+        // login the user using the Auth facade
+        try {
+            if (!$token = JWTAuth::fromUser($user)) {
+                return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.invalidCredentials')], 200);
+            }
+        } catch (JWTException $e) {
+            return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.notCreateToken')], 200);
+        }
+        //Create Cookie With Token
+        $cookie = Cookie::queue(Cookie::make('token', $token, config('jwt.ttl'), '/', null, true, true));
+        //Return Logged In User
+        return $this->returnLoggedInUser($user);
+    }
+
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return App\Traits\ApiResponser\SuccessResponse
+     */
+    public function logout()
+    {
         auth()->logout();
-        // redirect to homepage
-        return redirect('/');
+
+        return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.loggedOut')], 200);
     }
 }

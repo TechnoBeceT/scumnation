@@ -14,9 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('login/steam', 'Auth\SteamLoginController@login')->name('login.steam');
+Route::get('auth/login', 'Auth\SteamLoginController@login')->name('login.steam');
 Route::get('auth/steam', 'Auth\SteamLoginController@authenticate')->name('auth.steam');
+Route::get('auth/isLoggedIn', 'Auth\SteamLoginController@isLoggedIn');
+Route::post('auth/logout', 'Auth\SteamLoginController@logout');
+Route::get('auth/postman', 'Auth\SteamLoginController@loginForPostman'); //For Test Purposes
