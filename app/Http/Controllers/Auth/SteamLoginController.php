@@ -23,7 +23,8 @@ class SteamLoginController extends AbstractSteamLoginController
 
         // if the user doesn't exist, create them
         if (!$user) {
-            return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.userNotFound')], 200);
+            //return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.userNotFound')], 200);
+            $data = ['isLoggedIn' => false, 'message' => __('messages.userNotFound')];
         }else {
             $steamUser->getUserInfo(); // retrieve and set user info pulled from steam
             $user->avatar = $steamUser->avatarFull;
@@ -34,15 +35,20 @@ class SteamLoginController extends AbstractSteamLoginController
         // login the user using the Auth facade
         try {
             if (!$token = JWTAuth::fromUser($user)) {
-                return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.invalidCredentials')], 200);
+                //return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.invalidCredentials')], 200);
+                $data = ['isLoggedIn' => false, 'message' => __('messages.invalidCredentials')];
             }
         } catch (JWTException $e) {
-            return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.notCreateToken')], 200);
+            //return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.notCreateToken')], 200);
+            $data = ['isLoggedIn' => false, 'message' => __('messages.notCreateToken')];
         }
         //Create Cookie With Token
         $cookie = Cookie::queue(Cookie::make('token', $token, config('jwt.ttl'), '/', null, true, true));
         //Return Logged In User
-        return $this->returnLoggedInUser($user);
+        //return $this->returnLoggedInUser($user);
+        $data = ['isLoggedIn' => true, 'message' => __('messages.notCreateToken')];
+        return response()->view('login', compact('data'), 200)
+            ->header("Refresh", "5;url=https://scumnation.io");
     }
 
     /**
