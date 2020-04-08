@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Models\User;
+use App\Models\Users\User;
 use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
@@ -38,7 +38,8 @@ class UserTransformer extends TransformerAbstract
             'avatar'            => (string)$user->avatar,
             'name'              => (string)$user->name,
             'surname'           => (string)$user->surname,
-            'email'             => (string)$user->email
+            'email'             => (string)$user->email,
+            'credits'           => $user->credit->amount
         ];
     }
 }
