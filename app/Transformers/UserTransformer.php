@@ -42,7 +42,7 @@ class UserTransformer extends TransformerAbstract
             'credits'           => $user->credit->amount,
             'lastLogin'         => $user->statistics->last_login,
             'lastLogout'        => $user->statistics->last_logout,
-            'totalDeads'        => $user->statistics->total_deads,
+            'totalDeaths'        => $user->statistics->total_deads,
             'totalKills'        => $user->statistics->total_kills,
             'killDeathRatio'    => $user->statistics->kd,
             'eloStat'           => $user->statistics->elo
