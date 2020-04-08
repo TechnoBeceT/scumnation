@@ -25,6 +25,8 @@ class SteamLoginController extends AbstractSteamLoginController
         if (!$user) {
             //return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.userNotFound')], 200);
             $data = ['isLoggedIn' => false, 'message' => __('messages.userNotFound')];
+            return response()->view('login', compact('data'), 200)
+                    ->header("Refresh", "5;url=https://scumnation.io");
         }else {
             $steamUser->getUserInfo(); // retrieve and set user info pulled from steam
             $user->avatar = $steamUser->avatarFull;
