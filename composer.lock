@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c9ed61dc8c43adb765432d49ee55bdb1",
+    "content-hash": "aae6a845aea279a9845eaebb12a169b3",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -693,6 +693,73 @@
                 "url"
             ],
             "time": "2019-07-01T23:21:34+00:00"
+        },
+        {
+            "name": "kanalumaddela/laravel-steam-login",
+            "version": "2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kanalumaddela/laravel-steam-login.git",
+                "reference": "680cca1b64cb4b3ca695767aeac68948f9f651e3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kanalumaddela/laravel-steam-login/zipball/680cca1b64cb4b3ca695767aeac68948f9f651e3",
+                "reference": "680cca1b64cb4b3ca695767aeac68948f9f651e3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-libxml": "*",
+                "ext-simplexml": "*",
+                "guzzlehttp/guzzle": "^6.3",
+                "php": "^7.1",
+                "xpaw/steamid": "dev-master"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.8",
+                "phpunit/phpunit": "^8.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "kanalumaddela\\LaravelSteamLogin\\SteamLoginServiceProvider"
+                    ],
+                    "aliases": {
+                        "SteamLogin": "kanalumaddela\\LaravelSteamLogin\\Facades\\SteamLogin"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kanalumaddela\\LaravelSteamLogin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Samuel Maddela",
+                    "email": "git@maddela.org",
+                    "homepage": "https://www.maddela.org",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Steam Login package for Laravel 5.5+",
+            "keywords": [
+                "Authentication",
+                "OpenId",
+                "auth",
+                "laravel",
+                "login",
+                "lumen",
+                "php",
+                "steam"
+            ],
+            "time": "2019-12-07T07:18:24+00:00"
         },
         {
             "name": "laravel/framework",
@@ -3733,6 +3800,46 @@
                 }
             ],
             "time": "2020-03-13T01:23:26+00:00"
+        },
+        {
+            "name": "xpaw/steamid",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xPaw/SteamID.php.git",
+                "reference": "200e7a35a2841af7fd7ee1166a9b00929bbd6aa1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xPaw/SteamID.php/zipball/200e7a35a2841af7fd7ee1166a9b00929bbd6aa1",
+                "reference": "200e7a35a2841af7fd7ee1166a9b00929bbd6aa1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gmp": "*",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.3"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "SteamID.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pavel Djundik",
+                    "email": "steamid.php@xpaw.me"
+                }
+            ],
+            "description": "SteamID conversion library",
+            "time": "2019-12-04T12:01:45+00:00"
         }
     ],
     "packages-dev": [

@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 7.5.1 on 2020-04-08 14:10:43.
+ * Generated for Laravel 7.5.1 on 2020-04-08 14:19:38.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -15119,6 +15119,271 @@ namespace Facade\Ignition\Facades {
  
 }
 
+namespace kanalumaddela\LaravelSteamLogin\Facades { 
+
+    /**
+     * 
+     *
+     */ 
+    class SteamLogin {
+        
+        /**
+         * Build the login url with optional openid.return_to and ?redirect.
+         *
+         * @param string|null $return
+         * @param string|null $redirectTo
+         * @throws \InvalidArgumentException
+         * @return string 
+         * @static 
+         */ 
+        public static function buildLoginUrl($return = null, $redirectTo = null)
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->buildLoginUrl($return, $redirectTo);
+        }
+        
+        /**
+         * 
+         *
+         * @param string|null $return
+         * @return string 
+         * @deprecated 
+         * @static 
+         */ 
+        public static function createLoginUrl($return = null)
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->createLoginUrl($return);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $redirectTo
+         * @throws InvalidArgumentException
+         * @return \kanalumaddela\LaravelSteamLogin\SteamLogin 
+         * @static 
+         */ 
+        public static function setRedirectTo($redirectTo = null)
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->setRedirectTo($redirectTo);
+        }
+        
+        /**
+         * Return the ?redirect URL.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getRedirectTo()
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->getRedirectTo();
+        }
+        
+        /**
+         * Set the Guzzle instance to use.
+         *
+         * @param \GuzzleHttp\Client $guzzle
+         * @return \kanalumaddela\LaravelSteamLogin\SteamLogin 
+         * @static 
+         */ 
+        public static function setGuzzle($guzzle)
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->setGuzzle($guzzle);
+        }
+        
+        /**
+         * Set the openid.realm either by passing the URL or the domain only.
+         *
+         * @param string $realm
+         * @return \kanalumaddela\LaravelSteamLogin\SteamLogin 
+         * @static 
+         */ 
+        public static function setRealm($realm = null)
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->setRealm($realm);
+        }
+        
+        /**
+         * 
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getRealm()
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->getRealm();
+        }
+        
+        /**
+         * Check if login is valid.
+         *
+         * @throws Exception
+         * @return bool 
+         * @static 
+         */ 
+        public static function validated()
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->validated();
+        }
+        
+        /**
+         * Return the steamid if validated.
+         *
+         * @return string|null 
+         * @static 
+         */ 
+        public static function validate()
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->validate();
+        }
+        
+        /**
+         * Redirect the user to steam's login page.
+         *
+         * @return \kanalumaddela\LaravelSteamLogin\RedirectResponse 
+         * @static 
+         */ 
+        public static function redirectToSteam()
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->redirectToSteam();
+        }
+        
+        /**
+         * Return the user to the page they were on before logging in
+         * or home if no valid ?redirect given.
+         *
+         * @return \kanalumaddela\LaravelSteamLogin\RedirectResponse 
+         * @static 
+         */ 
+        public static function previousPage()
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->previousPage();
+        }
+        
+        /**
+         * Return the steam login url.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getLoginUrl()
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->getLoginUrl();
+        }
+        
+        /**
+         * Return player object and optionally choose to retrieve profile info.
+         *
+         * @param bool $info
+         * @return \kanalumaddela\LaravelSteamLogin\SteamUser 
+         * @static 
+         */ 
+        public static function getSteamUser($info = false)
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->getSteamUser($info);
+        }
+        
+        /**
+         * {@inheritdoc}
+         *
+         * @static 
+         */ 
+        public static function getPlayer($info = false)
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->getPlayer($info);
+        }
+        
+        /**
+         * Return Guzzle response of POSTing to Steam's OpenID.
+         *
+         * @return \GuzzleHttp\Psr7\Response 
+         * @static 
+         */ 
+        public static function getResponse()
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->getResponse();
+        }
+        
+        /**
+         * Return the OpenID response.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getOpenIdResponse()
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->getOpenIdResponse();
+        }
+        
+        /**
+         * Check if HTTPS.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function isHttps()
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->isHttps();
+        }
+        
+        /**
+         * Check if query parameters are valid post steam login.
+         *
+         * @param \Illuminate\Http\Request|null $request
+         * @return bool 
+         * @static 
+         */ 
+        public static function validRequest($request = null)
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->validRequest($request);
+        }
+        
+        /**
+         * Returns Steam Login button with link.
+         *
+         * @param string $type
+         * @return string 
+         * @static 
+         */ 
+        public static function loginButton($type = 'small')
+        {
+                        /** @var \kanalumaddela\LaravelSteamLogin\SteamLogin $instance */
+                        return $instance->loginButton($type);
+        }
+        
+        /**
+         * Return the URL of Steam Login buttons.
+         *
+         * @param string $type
+         * @return string 
+         * @static 
+         */ 
+        public static function button($type = 'small')
+        {
+                        return \kanalumaddela\LaravelSteamLogin\SteamLogin::button($type);
+        }
+         
+    }
+ 
+}
+
 
 namespace  { 
 
@@ -18073,6 +18338,8 @@ namespace  {
     class View extends \Illuminate\Support\Facades\View {}
 
     class Flare extends \Facade\Ignition\Facades\Flare {}
+
+    class SteamLogin extends \kanalumaddela\LaravelSteamLogin\Facades\SteamLogin {}
  
 }
 
