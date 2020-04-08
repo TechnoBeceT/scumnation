@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Models\Users\User;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -14,6 +14,9 @@ class UsersTableSeeder extends Seeder
     {
         $technobecet = User::create([
             'steamid' => '76561198009780481'
+        ]);
+        $shaun = User::create([
+            'steamid' => '76561198123650511'
         ]);
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Models\Finance;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
+use App\Models\Users\User;
 
 class Credit extends Model
 {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
+use App\Models\Users\User;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use kanalumaddela\LaravelSteamLogin\Http\Controllers\AbstractSteamLoginController;

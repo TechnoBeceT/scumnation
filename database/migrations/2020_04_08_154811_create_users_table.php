@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('nickname')->nullable();
             $table->string('steam_name')->nullable();
             $table->string('avatar')->nullable();

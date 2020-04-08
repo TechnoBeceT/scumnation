@@ -14,7 +14,7 @@ class CreateCreditsTable extends Migration
     public function up()
     {
         Schema::create('credits', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->integer('amount')->default(0);
             $table->foreign('user_id')->references('id')->on('users');

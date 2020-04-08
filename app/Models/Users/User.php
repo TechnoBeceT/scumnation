@@ -3,6 +3,8 @@
 namespace App\Models\Users;
 
 use App\Traits\Models\Finance;
+use App\Traits\Models\Statistics;
+use App\Traits\Models\UserTrait;
 use App\Transformers\UserTransformer;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +13,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, Finance;
+    use Notifiable, UserTrait, Finance, Statistics;
 
     public $transformer = UserTransformer::class;
 
