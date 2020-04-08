@@ -37,10 +37,14 @@ class SteamLoginController extends AbstractSteamLoginController
             if (!$token = JWTAuth::fromUser($user)) {
                 //return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.invalidCredentials')], 200);
                 $data = ['isLoggedIn' => false, 'message' => __('messages.invalidCredentials')];
+                return response()->view('login', compact('data'), 200)
+                    ->header("Refresh", "5;url=https://scumnation.io");
             }
         } catch (JWTException $e) {
             //return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.notCreateToken')], 200);
             $data = ['isLoggedIn' => false, 'message' => __('messages.notCreateToken')];
+            return response()->view('login', compact('data'), 200)
+                ->header("Refresh", "5;url=https://scumnation.io");
         }
         //Create Cookie With Token
         $cookie = Cookie::queue(Cookie::make('token', $token, config('jwt.ttl'), '/', null, true, true));
