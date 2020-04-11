@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35e15f6551fa97a2b94a021571872fad",
+    "content-hash": "995ccac284189c6658328c3bffd77e0a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2290,6 +2290,60 @@
                 }
             ],
             "time": "2020-03-02T18:40:49+00:00"
+        },
+        {
+            "name": "spatie/laravel-sluggable",
+            "version": "2.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-sluggable.git",
+                "reference": "7fc73c1525623b15b6ac53eaa5b8a1e97e432292"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-sluggable/zipball/7fc73c1525623b15b6ac53eaa5b8a1e97e432292",
+                "reference": "7fc73c1525623b15b6ac53eaa5b8a1e97e432292",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^7.0",
+                "illuminate/support": "^7.0",
+                "php": "^7.4"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Sluggable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Generate slugs when saving Eloquent models",
+            "homepage": "https://github.com/spatie/laravel-sluggable",
+            "keywords": [
+                "laravel-sluggable",
+                "spatie"
+            ],
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-04-09T11:52:09+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
