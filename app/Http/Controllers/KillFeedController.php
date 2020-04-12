@@ -17,6 +17,7 @@ class KillFeedController extends Controller
      */
     public function index()
     {
-        return $this->showAll(Kill::all());
+        $kills =Kill::orderBy('date', 'desc')->get();
+        return $this->showAll($kills);
     }
 }
