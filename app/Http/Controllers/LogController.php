@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\EloCalculator;
+use App\Models\Finance\History;
 use App\Models\Logs\Admin;
 use App\Models\Logs\Kill;
 use App\Models\Logs\Login;
@@ -161,11 +162,17 @@ class LogController extends Controller
                     $addToCurrency = round($time * 10, 2);
                     //Give calculated coins
                     $checkUser->addCredits($addToCurrency);
+                    History::create([
+                        'user_id'   => $checkUser->id,
+                        'type'      => History::PLAYTIME,
+                        'action_type'   => History::ADD,
+                        'amount'    => $addToCurrency
+                    ]);
                     //Return Success Response
                     return $this->successResponse(['status' => 'Success', 'response' => 'Login Log Added'], 200);
                 } catch (\Throwable $th) {
                     //Return Failed Response
-                    return $this->errorResponse(['status' => 'Failed', 'response' => 'Something went wrong'], 500);
+                    return $th;
                 }
             }
             //If line is unnecessary
@@ -232,8 +239,22 @@ class LogController extends Controller
                 if ($victim->credit->amount >= 10) {
                     //Give coins to killer
                     $killer->addCredits(10);
+                    History::create([
+                        'user_id'   => $killer->id,
+                        'type'      => History::KILL,
+                        'victim_id' => $victim->id,
+                        'action_type'   => History::ADD,
+                        'amount'    => 10
+                    ]);
                     //Remove coins from victim
                     $victim->deductCredits(10);
+                    History::create([
+                        'user_id'   => $victim->id,
+                        'type'      => History::DEATH,
+                        'killer_id' => $killer->id,
+                        'action_type'   => History::DEDUCT,
+                        'amount'    => 10
+                    ]);
                 }
                 $killer->addKill(1);
                 $victim->addDeath(1);
@@ -243,7 +264,7 @@ class LogController extends Controller
                 $killer->statistics()->update([
                     'elo' => round(max($calculateResults['Killer'], 0), 2),
                 ]);
-                if ($killer->statistics->total_deads == 0 || $killer->statistics->total_kills) {
+                if ($killer->statistics->total_deads == 0) {
                     $killer->statistics()->update([
                         'kd' => null,
                     ]);
@@ -256,7 +277,7 @@ class LogController extends Controller
                 $victim->statistics()->update([
                     'elo' => round(max($calculateResults['Victim'], 0), 2),
                 ]);
-                if ($victim->statistics->total_deads == 0 || $victim->statistics->total_kills) {
+                if ($victim->statistics->total_deads == 0) {
                     $victim->statistics()->update([
                         'kd' => null,
                     ]);
@@ -321,8 +342,22 @@ class LogController extends Controller
                 if ($victim->currency >= 3) {
                     //Give coins to killer
                     $killer->addCredits(2.5);
+                    History::create([
+                        'user_id'       => $killer->id,
+                        'type'          => History::KILL,
+                        'victim_id'     => $victim->id,
+                        'action_type'   => History::ADD,
+                        'amount'        => 2.5
+                    ]);
                     //Remove coins from victim
                     $victim->deductCredits(2.5);
+                    History::create([
+                        'user_id'   => $victim->id,
+                        'type'      => History::DEATH,
+                        'killer_id' => $killer->id,
+                        'action_type'   => History::DEDUCT,
+                        'amount'    => 2.5
+                    ]);
                 }
                 $killer->addKill(1);
                 $victim->addDeath(1);
@@ -332,7 +367,7 @@ class LogController extends Controller
                 $killer->statistics()->update([
                     'elo' => round(max($calculateResults['Killer'], 0), 2),
                 ]);
-                if ($killer->statistics->total_deads == 0 || $killer->statistics->total_kills) {
+                if ($killer->statistics->total_deads == 0) {
                     $killer->statistics()->update([
                         'kd' => null,
                     ]);
@@ -345,7 +380,7 @@ class LogController extends Controller
                 $victim->statistics()->update([
                     'elo' => round(max($calculateResults['Victim'], 0), 2),
                 ]);
-                if ($victim->statistics->total_deads == 0 || $victim->statistics->total_kills) {
+                if ($victim->statistics->total_deads == 0) {
                     $victim->statistics()->update([
                         'kd' => null,
                     ]);
