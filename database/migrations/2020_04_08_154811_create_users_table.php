@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('steam_name')->nullable();
             $table->string('avatar')->nullable();
             $table->string('steamid')->unique();
+            $table->string('profile_url')->nullable();
             $table->string('scumid')->unique()->nullable();
             $table->string('name')->nullable();
             $table->string('surname')->nullable();

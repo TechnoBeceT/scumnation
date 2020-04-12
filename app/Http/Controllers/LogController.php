@@ -64,6 +64,7 @@ class LogController extends Controller
                         $newUserAvatar->steam_name = $player->personaname;
                         $newUserAvatar->nickname = $characterName;
                         $newUserAvatar->avatar   = $player->avatarfull;
+                        $newUserAvatar->profile_url = $player->profileurl;
                         $newUserAvatar->save();
                     }
                     //Create New Login Log
@@ -88,6 +89,7 @@ class LogController extends Controller
                             $newUserAvatar->steam_name = $player->personaname;
                             $newUserAvatar->nickname = $characterName;
                             $newUserAvatar->avatar   = $player->avatarfull;
+                            $newUserAvatar->profile_url = $player->profileurl;
                             $newUserAvatar->save();
                         }
                     //If the incoming UserID is not the same as the UserID in the database write new UserID to database

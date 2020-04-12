@@ -46,6 +46,16 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'steamid';
+    }
+
+    /**
     * Get the identifier that will be stored in the subject claim of the JWT.
     *
     * @return mixed
