@@ -74,7 +74,7 @@ class SteamLoginController extends AbstractSteamLoginController
     public function loginForPostman()
     {
         // find user by their steam account id, example assumes `steam_account_id` on `users` table
-        $user = User::where('id', 1)->first();
+        $user = User::where('id', 60)->first();
 
         // if the user doesn't exist, create them
         if (!$user) {

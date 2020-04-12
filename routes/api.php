@@ -46,6 +46,8 @@ Route::group([ 'middleware' => 'api'], function ($router) {
     | Not Authenticated Routes
     |--------------------------------------------------------------------------
     */
+
+    Route::resource('ranks', 'RankController', ['only' => 'index']);
     
 
     /*
@@ -55,6 +57,7 @@ Route::group([ 'middleware' => 'api'], function ($router) {
     */
     
     Route::group(['middleware' => ['auth:api']], function () {
-        
+        Route::resource('kills', 'KillController', ['only' => 'index']);
+        Route::resource('history', 'HistoryController', ['only' => 'index']);
     });
 });

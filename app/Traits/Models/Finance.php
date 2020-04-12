@@ -3,6 +3,7 @@
 namespace App\Traits\Models;
 
 use App\Models\Finance\Credit;
+use App\Models\Finance\History;
 
 trait Finance
 {
@@ -15,6 +16,16 @@ trait Finance
     public function credit()
     {
         return $this->hasOne(Credit::class, 'user_id');
+    }
+
+    /**
+     * Get the credit amount for specified user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function history()
+    {
+        return $this->hasMany(History::class, 'user_id');
     }
 
     /**

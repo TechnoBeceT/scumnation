@@ -3,6 +3,7 @@
 namespace App\Models\Finance;
 
 use App\Models\Users\User;
+use App\Transformers\HistoryTransformer;
 use Illuminate\Database\Eloquent\Model;
 
 class History extends Model
@@ -15,7 +16,7 @@ class History extends Model
     const DEDUCT    = 'Deduct';
     const ADD       = 'Add';
 
-    public $timestamps = false;
+    public $transformer = HistoryTransformer::class;
 
     /**
      * The attributes that are mass assignable.

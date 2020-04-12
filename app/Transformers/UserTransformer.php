@@ -2,6 +2,7 @@
 
 namespace App\Transformers;
 
+use App\Models\Users\Statistic;
 use App\Models\Users\User;
 use League\Fractal\TransformerAbstract;
 
@@ -32,6 +33,7 @@ class UserTransformer extends TransformerAbstract
      */
     public function transform(User $user)
     {
+        $positions = Statistic::orderBy('elo', 'desc')->pluck('user_id')->toArray();
         return [
             'isAdmin'           => (bool)false,
             'characterName'     => (string)$user->nickname,
@@ -46,7 +48,28 @@ class UserTransformer extends TransformerAbstract
             'totalDeaths'       => (integer)$user->statistics->total_deads,
             'totalKills'        => (integer)$user->statistics->total_kills,
             'killDeathRatio'    => (float)$user->statistics->kd,
-            'eloStat'           => (float)$user->statistics->elo
+            'eloStat'           => (float)$user->statistics->elo,
+            'rank'              => (int)array_search($user->id, $positions) + 1
         ];
+    }
+
+    public static function originalAttribute($index)
+    {
+        $attributes = [
+            'characterName'     => 'nickname',
+            'steamName'         => 'steam_name',
+            'avatar'            => 'avatar',
+            'name'              => 'name',
+            'surname'           => 'surname',
+            'email'             => 'email',
+            'lastLogin'         => 'statistics.last_login',
+            'lastLogout'        => 'statistics.last_logout',
+            'totalDeaths'       => 'statistics.total_deads',
+            'totalKills'        => 'statistics.total_kills',
+            'killDeathRatio'    => 'statistics.kd',
+            'eloStat'           => 'statistics.elo'
+        ];
+
+        return isset($attributes[$index]) ? $attributes[$index] : null;
     }
 }
