@@ -35,21 +35,21 @@ class HistoryTransformer extends TransformerAbstract
         switch ($history->type) {
             case History::PLAYTIME:
                 return [
-                    'type'              => $history->action_type,
-                    'amount'            => $history->amount,
-                    'description'       => 'Credit for playing time'
+                    'type'              => (string)$history->action_type,
+                    'amount'            => (float)$history->amount,
+                    'description'       => (string)'Credit for playing time'
                 ];
             case History::KILL:
                 return [
-                    'type'              => $history->action_type,
-                    'amount'            => $history->amount,
-                    'description'       => 'Credit for killing ' . $history->victim->nickname
+                    'type'              => (string)$history->action_type,
+                    'amount'            => (float)$history->amount,
+                    'description'       => (string)'Credit for killing ' . $history->victim->nickname
                 ];
             case History::DEATH:
                 return [
-                    'type'              => $history->action_type,
-                    'amount'            => $history->amount,
-                    'description'       => 'Credit removed for death. Killer: ' . $history->killer->nickname
+                    'type'              => (string)$history->action_type,
+                    'amount'            => (float)$history->amount,
+                    'description'       => (string)'Credit removed for death. Killer: ' . $history->killer->nickname
                 ];
         }
     }

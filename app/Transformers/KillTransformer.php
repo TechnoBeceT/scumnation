@@ -33,16 +33,16 @@ class KillTransformer extends TransformerAbstract
     public function transform(Kill $kill)
     {
         return [
-            'id'        => md5($kill->id),
-            'type'      => auth()->check() && auth()->user()->id == $kill->killer_id ? 'kill' : 'death',
-            'killer'    => $kill->killer->nickname,
-            'killerX'   => $kill->killerX,
-            'killerY'   => $kill->killerY,
-            'victim'    => $kill->victim->nickname,
-            'victimX'   => $kill->victimX,
-            'victimY'   => $kill->victimY,
-            'type'      => $kill->type,
-            'date'      => $kill->date
+            'id'        => (int)md5($kill->id),
+            'kill'      => (bool)auth()->check() && auth()->user()->id == $kill->killer_id ? True : False,
+            'killer'    => (string)$kill->killer->nickname,
+            'killerX'   => (string)$kill->killerX,
+            'killerY'   => (string)$kill->killerY,
+            'victim'    => (string)$kill->victim->nickname,
+            'victimX'   => (string)$kill->victimX,
+            'victimY'   => (string)$kill->victimY,
+            'type'      => (string)$kill->type,
+            'date'      => (string)$kill->date
         ];
     }
 
