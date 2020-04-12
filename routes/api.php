@@ -48,6 +48,7 @@ Route::group([ 'middleware' => 'api'], function ($router) {
     */
 
     Route::resource('ranks', 'RankController', ['only' => 'index']);
+    Route::resource('killFeed', 'KillFeedController', ['only' => 'index']);
     
 
     /*
