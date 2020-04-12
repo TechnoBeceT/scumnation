@@ -15,13 +15,19 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('nickname')->nullable();
+            $table->string('steam_name')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('steamid')->unique();
+            $table->string('scumid')->unique()->nullable();
+            $table->string('name')->nullable();
+            $table->string('surname')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
+        DB::unprepared('create trigger users_update before update on users for each row execute procedure update_date();');
     }
 
     /**
@@ -31,6 +37,7 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        DB::unprepared('DROP TRIGGER users_update on users');
         Schema::dropIfExists('users');
     }
 }

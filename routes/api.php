@@ -14,6 +14,47 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([ 'middleware' => 'api'], function ($router) {
+        /*
+    |--------------------------------------------------------------------------
+    | Logger Routes
+    |--------------------------------------------------------------------------
+    */
+
+    Route::group(['prefix' => 'logger'], function () {
+        Route::post('login', 'LogController@fetchLoginLogs');
+        Route::post('kill', 'LogController@fetchKillLogs');
+        Route::post('admin', 'LogController@fetchAdminLogs');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Auth Routes
+    |--------------------------------------------------------------------------
+    */
+
+    Route::group(['prefix' => 'auth'], function ($router) {
+        Route::get('login', 'Auth\SteamLoginController@login')->name('login.steam');
+        Route::get('steam', 'Auth\SteamLoginController@authenticate')->name('auth.steam');
+        Route::get('isLoggedIn', 'Auth\SteamLoginController@isLoggedIn');
+        Route::post('logout', 'Auth\SteamLoginController@logout');
+        Route::get('postman', 'Auth\SteamLoginController@loginForPostman'); //For Test Purposes
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Not Authenticated Routes
+    |--------------------------------------------------------------------------
+    */
+    
+
+    /*
+    |--------------------------------------------------------------------------
+    | Authenticated Routes
+    |--------------------------------------------------------------------------
+    */
+    
+    Route::group(['middleware' => ['auth:api']], function () {
+        
+    });
 });
