@@ -34,7 +34,7 @@ class KillTransformer extends TransformerAbstract
     {
         return [
             'id'        => md5($kill->id),
-            'type'      => auth()->user()->id == $kill->killer_id ? 'kill' : 'death',
+            'type'      => auth()->check() && auth()->user()->id == $kill->killer_id ? 'kill' : 'death',
             'killer'    => $kill->killer->nickname,
             'killerX'   => $kill->killerX,
             'killerY'   => $kill->killerY,
