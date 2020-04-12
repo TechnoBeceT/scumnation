@@ -17,7 +17,8 @@ class RankController extends Controller
      */
     public function index()
     {
-        $users = User::join('statistics', 'users.id', '=', 'statistics.id')->orderBy('statistics.elo', 'desc')->select('users.*')->get();
+        $users = User::all();
+        $users = $users->sortBy('rank');
         return $this->showAll($users);
     }
 }
