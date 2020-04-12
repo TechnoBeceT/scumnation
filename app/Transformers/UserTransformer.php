@@ -48,7 +48,6 @@ class UserTransformer extends TransformerAbstract
             'totalDeaths'       => (integer)$user->statistics->total_deads,
             'totalKills'        => (integer)$user->statistics->total_kills,
             'killDeathRatio'    => $user->statistics->kd,
-            'eloStat'           => (float)$user->statistics->elo,
             'rank'              => (int)$user->rank
         ];
     }
@@ -67,7 +66,6 @@ class UserTransformer extends TransformerAbstract
             'totalDeaths'       => 'statistics.total_deads',
             'totalKills'        => 'statistics.total_kills',
             'killDeathRatio'    => 'statistics.kd',
-            'eloStat'           => 'statistics.elo'
         ];
 
         return isset($attributes[$index]) ? $attributes[$index] : null;
