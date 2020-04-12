@@ -7,10 +7,13 @@ use App\Models\Logs\Admin;
 use App\Models\Logs\Kill;
 use App\Models\Logs\Login;
 use App\Models\Users\User;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 
 class LogController extends Controller
 {
+    use ApiResponser;
+    
     public function fetchLoginLogs(Request $request)
     {
         $loginRows = str_replace("'", '', explode(' ', $request['logLine']));
@@ -22,16 +25,19 @@ class LogController extends Controller
             $date0 = str_replace('.', '-', $loginDate[0]);
             $date1 = str_replace('.', ':', $loginDate[1]);
             $fullDate = $date0 . ' ' . $date1;
+            preg_match("/\\'[\d\.-]+ [\d]*[\d]{17}\:.*' /", $request['logLine'], $catchedCharacterName);
+            $characterName = preg_replace('/\([\d]*\)\'/', '', explode(':', $catchedCharacterName[0])[1]);;
+            
 
             //IP pharse
             $ip = str_replace("'", '', $loginRows[1]);
 
             //SteamID Pharse
-            $catchSteamID = preg_match("/\\'[\d\.-]+ [\d]*[\d]{17}\:/", $request['logLine'], $catchedSteamID);
+            preg_match("/\\'[\d\.-]+ [\d]*[\d]{17}\:/", $request['logLine'], $catchedSteamID);
             $steamID = str_replace(':', '', explode(' ', $catchedSteamID[0]))[1];
 
             //UserID Pharse
-            $catchUserID = preg_match('/\([\d]*\)\' logged in/', $request['logLine'], $catchedUserID);
+            preg_match('/\([\d]*\)\' logged in/', $request['logLine'], $catchedUserID);
             $userID = str_replace(")'", '', str_replace('(', '', str_replace(':', '', explode(' ', $catchedUserID[0]))))[0];
 
             //Searching for User with SteamID in Users Table
@@ -39,19 +45,22 @@ class LogController extends Controller
 
             //If checkUser returning Null
             if (is_null($checkUser)) {
-                //Create new User
-                $user = User::create([
-                    'steamid' => $steamID,
-                    'scumid' => $userID,
-                    'last_login' => $fullDate
-                ]);
-                //If User Created
-                if ($user) {
+                try {
+                    //Create new User
+                    $user = User::create([
+                        'steamid' => $steamID,
+                        'scumid' => $userID,
+                    ]);
+                    $user->statistics()->update([
+                        'last_login' => $fullDate,
+                    ]);
+                    //If User Created
                     $userCreate = file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=52A66B13219F645834149F1A1180770A&steamids='.$steamID);
                     $userCreateParse = json_decode($userCreate);
                     foreach($userCreateParse->response->players as $player) {
                         $newUserAvatar = User::where('steamid', $player->steamid)->first();
-                        $newUserAvatar->nickname = $player->personaname;
+                        $newUserAvatar->steam_name = $player->personaname;
+                        $newUserAvatar->nickname = $characterName;
                         $newUserAvatar->avatar   = $player->avatarfull;
                         $newUserAvatar->save();
                     }
@@ -62,60 +71,55 @@ class LogController extends Controller
                         'action' => Login::LOGGED_IN
                     ]);
                     //Return Success Response
-                    return response()->json([
-                        'status' => 'Success',
-                        'response' => 'Login Log Added'
-                    ], 200);
-                } else {
+                    return $this->successResponse(['status' => 'Success', 'response' => 'Login Log Added'], 200);
+                } catch (\Throwable $th) {
                     //Return Failed Response
-                    return response()->json([
-                        'status' => 'Failed',
-                        'response' => 'Could not create user'
-                    ], 500);
+                    return $this->errorResponse(['status' => 'Failed', 'response' => 'Could not create user'], 500);
                 }
-                //If this user is exists in the database
+            //If this user is exists in the database
             } else {
-                $userCreate = file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=52A66B13219F645834149F1A1180770A&steamids='.$steamID);
-                    $userCreateParse = json_decode($userCreate);
-                    foreach($userCreateParse->response->players as $player) {
-                        $newUserAvatar = User::where('steamid', $player->steamid)->first();
-                        $newUserAvatar->nickname = $player->personaname;
-                        $newUserAvatar->avatar   = $player->avatarfull;
-                        $newUserAvatar->save();
+                try {
+                    $userCreate = file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=52A66B13219F645834149F1A1180770A&steamids='.$steamID);
+                        $userCreateParse = json_decode($userCreate);
+                        foreach($userCreateParse->response->players as $player) {
+                            $newUserAvatar = User::where('steamid', $player->steamid)->first();
+                            $newUserAvatar->steam_name = $player->personaname;
+                            $newUserAvatar->nickname = $characterName;
+                            $newUserAvatar->avatar   = $player->avatarfull;
+                            $newUserAvatar->save();
+                        }
+                    //If the incoming UserID is not the same as the UserID in the database write new UserID to database
+                    if ($checkUser->scumid !== $userID) {
+                        //Find old user with this UserID and change to NULL
+                        $oldUser = User::where('scumid', $userID)->first();
+                        if (!is_null($oldUser)) {
+                            $oldUser->scumid = null;
+                            $oldUser->save();
+                        }
+                        $checkUser->scumid = $userID;
+                        $checkUser->save();
                     }
-                //If the incoming UserID is not the same as the UserID in the database write new UserID to database
-                if ($checkUser->scumid !== $userID) {
-                    //Find old user with this UserID and change to NULL
-                    $oldUser = User::where('scumid', $userID)->first();
-                    if (!is_null($oldUser)) {
-                        $oldUser->scumid = null;
-                        $oldUser->save();
-                    }
-                    $checkUser->scumid = $userID;
-                    $checkUser->save();
+                    //Update user's last login date
+                    $checkUser->statistics()->update([
+                        'last_login' => $fullDate,
+                    ]);
+                    //Create New Login Log
+                    Login::create([
+                        'user_id' => $checkUser->id,
+                        'date' => $fullDate,
+                        'action' => Login::LOGGED_IN
+                    ]);
+                    //Return Success Response
+                    return $this->successResponse(['status' => 'Success', 'response' => 'Login Log Added'], 200);
+                } catch (\Throwable $th) {
+                    //Return Failed Response
+                    return $this->errorResponse(['status' => 'Failed', 'response' => 'Something went wrong'], 500);
                 }
-                //Update user's last login date
-                $checkUser->last_login = $fullDate;
-                $checkUser->save();
-                //Create New Login Log
-                Login::create([
-                    'user_id' => $checkUser->id,
-                    'date' => $fullDate,
-                    'action' => Login::LOGGED_IN
-                ]);
-                //Return Success Response
-                return response()->json([
-                    'status' => 'Success',
-                    'response' => 'Login Log Added'
-                ], 200);
             }
             //If line is about game version
         } elseif (count($loginRows) === 4 && $loginRows[1] === 'Game' && $loginRows[2] === 'version:') {
             //Return Failed Response
-            return response()->json([
-                'status' => 'Failed',
-                'response' => 'Game Version Line'
-            ], 406);
+            return $this->errorResponse(['status' => 'Failed', 'response' => 'Game Version Line'], 406);
         //If line is about player logout
         } elseif (count($loginRows) === 4 && $loginRows[2] === 'logging' && $loginRows[3] === 'out') {
             //Date pharse
@@ -134,51 +138,48 @@ class LogController extends Controller
             //If checkUser returning Null
             if (is_null($checkUser)) {
                 //Return Failed Response
-                return response()->json([
-                    'status' => 'Failed',
-                    'response' => 'User not found'
-                ], 404);
+                return $this->errorResponse(['status' => 'Failed', 'response' => 'User not found'], 404);
             //If this user is exists in the database
             } else {
-                //Update user's last logout date
-                $checkUser->last_logout = $fullDate;
-                $checkUser->save();
-                //Create New Login Log
-                Login::create([
-                    'user_id' => $checkUser->id,
-                    'date' => $fullDate,
-                    'action' => Login::LOGGED_OUT
-                ]);
-                //Calculate coins given to player, using last login and logout times
-                $ts1 = strtotime($checkUser->last_login);
-                $ts2 = strtotime($checkUser->last_logout);
-                $seconds_diff = $ts2 - $ts1;
-                $time = ($seconds_diff / 3600);
-                //Calculated Coins
-                $addToCurrency = round($time * 10, 2);
-                //Give calculated coins
-                $checkUser->currency = $checkUser->currency + $addToCurrency;
-                //Return Success Response
-                return response()->json([
-                    'status' => 'Success',
-                    'response' => 'Login Log Added'
-                ], 200);
+                try {
+                    //Update user's last logout date
+                    $checkUser->statistics()->update([
+                        'last_logout' => $fullDate,
+                    ]);
+                    //Create New Login Log
+                    Login::create([
+                        'user_id' => $checkUser->id,
+                        'date' => $fullDate,
+                        'action' => Login::LOGGED_OUT
+                    ]);
+                    //Calculate coins given to player, using last login and logout times
+                    $ts1 = strtotime($checkUser->statistics->last_login);
+                    $ts2 = strtotime($checkUser->statistics->last_logout);
+                    $seconds_diff = $ts2 - $ts1;
+                    $time = ($seconds_diff / 3600);
+                    //Calculated Coins
+                    $addToCurrency = round($time * 10, 2);
+                    //Give calculated coins
+                    $checkUser->addCredits($addToCurrency);
+                    //Return Success Response
+                    return $this->successResponse(['status' => 'Success', 'response' => 'Login Log Added'], 200);
+                } catch (\Throwable $th) {
+                    //Return Failed Response
+                    return $this->errorResponse(['status' => 'Failed', 'response' => 'Something went wrong'], 500);
+                }
             }
             //If line is unnecessary
         } else {
             //Return Failed Response
-            return response()->json([
-                'status' => 'Failed',
-                'response' => 'Line Is Not The Right Line'
-            ], 406);
+            return $this->errorResponse(['status' => 'Failed', 'response' => 'Line Is Not The Right Line'], 406);
         }
     }
 
     public function fetchKillLogs(Request $request)
     {
         $loginRows = str_replace("'", '', explode(' ', $request['logLine']));
-        $checkEvent = preg_match('/\(killer participating in game event\)/', $request['logLine'], $checkEventResult);
-        $checkLocation = preg_match('/\ \([\d]{17}\) S\[KillerLoc\:/', $request['logLine'], $checkedLocation);
+        preg_match('/\(killer participating in game event\)/', $request['logLine'], $checkEventResult);
+        preg_match('/\ \([\d]{17}\) S\[KillerLoc\:/', $request['logLine'], $checkedLocation);
 
         if (count($loginRows) >= 11 && $loginRows[1] !== 'Game' && $loginRows[2] !== 'version:' && count($checkEventResult) !== 1 && count($checkedLocation) === 1) {
             //Date pharse
@@ -188,84 +189,85 @@ class LogController extends Controller
             $date1 = str_replace('.', ':', $loginDate[1]);
             $fullDate = $date0 . ' ' . $date1;
             //Victim SteamID Pharse
-            $catchVictimSteamID = preg_match('/\ \([\d]{17}\), Killer/', $request['logLine'], $catchedVictimSteamID);
+            preg_match('/\ \([\d]{17}\), Killer/', $request['logLine'], $catchedVictimSteamID);
             $victimSteamID = str_replace('(', '', str_replace(',', '', str_replace(')', '', explode(' ', $catchedVictimSteamID[0]))))[1];
             $victim = User::where('steamid', $victimSteamID)->first();
             //Killer SteamID Pharse
-            $catchKillerSteamID = preg_match('/\ \([\d]{17}\) S\[KillerLoc\:/', $request['logLine'], $catchedKillerSteamID);
+            preg_match('/\ \([\d]{17}\) S\[KillerLoc\:/', $request['logLine'], $catchedKillerSteamID);
             $killerSteamID = str_replace('(', '', str_replace(')', '', explode(' ', $catchedKillerSteamID[0])))[1];
             $killer = User::where('steamid', $killerSteamID)->first();
 
             //Killer Location Pharse
-            $catchKillerLocation = preg_match('/\ S\[KillerLoc: [\d\.-]+, [\d\.-]+, [\d\.-]+, VictimLoc:/', $request['logLine'], $catchedKillerLocation);
+            preg_match('/\ S\[KillerLoc: [\d\.-]+, [\d\.-]+, [\d\.-]+, VictimLoc:/', $request['logLine'], $catchedKillerLocation);
             $killerLocation = explode(' ', str_replace(',', '', str_replace(' S[KillerLoc:', '', $catchedKillerLocation[0])));
             $killerX = $killerLocation[1];
             $killerY = $killerLocation[2];
             $killerZ = $killerLocation[3];
 
             //Victim Location Pharse
-            $catchVictimLocation = preg_match('/, VictimLoc: [\d\.-]+, [\d\.-]+, [\d\.-]+\] C\[KillerLoc:/', $request['logLine'], $catchedVictimLocation);
+            preg_match('/, VictimLoc: [\d\.-]+, [\d\.-]+, [\d\.-]+\] C\[KillerLoc:/', $request['logLine'], $catchedVictimLocation);
             $victimLocation = explode(' ', str_replace(']', '', str_replace(',', '', str_replace(', VictimLoc: ', '', $catchedVictimLocation[0]))));
             $victimX = $victimLocation[0];
             $victimY = $victimLocation[1];
             $victimZ = $victimLocation[2];
             if (is_null($victim) || is_null($killer)) {
                 //Return Failed Response
-                return response()->json([
-                    'status' => 'Failed',
-                    'response' => 'User not found'
-                ], 404);
+                return $this->errorResponse(['status' => 'Failed', 'response' => 'User not found'], 404);
             }
 
-            $kill = Kill::create([
-                'killer_id' => $killer->id,
-                'killerX' => $killerX,
-                'killerY' => $killerY,
-                'killerZ' => $killerZ,
-                'victim_id' => $victim->id,
-                'victimX' => $victimX,
-                'victimY' => $victimY,
-                'victimZ' => $victimZ,
-                'type' => Kill::NOT_EVENT,
-                'date' => $fullDate
-            ]);
-            if ($kill) {
-                if ($victim->currency >= 10) {
+            try {
+                Kill::create([
+                    'killer_id' => $killer->id,
+                    'killerX' => $killerX,
+                    'killerY' => $killerY,
+                    'killerZ' => $killerZ,
+                    'victim_id' => $victim->id,
+                    'victimX' => $victimX,
+                    'victimY' => $victimY,
+                    'victimZ' => $victimZ,
+                    'type' => Kill::NOT_EVENT,
+                    'date' => $fullDate
+                ]);
+
+                if ($victim->credit->amount >= 10) {
                     //Give coins to killer
-                    $killer->currency = $killer->currency + 10;
+                    $killer->addCredits(10);
                     //Remove coins from victim
-                    $victim->currency = $victim->currency - 10;
+                    $victim->deductCredits(10);
                 }
-                $killer->total_kills = $killer->total_kills + 1;
-                $victim->total_deads = $victim->total_deads + 1;
-                $calculateElo = new EloCalculator($killer->elo, $victim->elo, EloCalculator::WIN, EloCalculator::LOST);
+                $killer->addKill(1);
+                $victim->addDeath(1);
+                $calculateElo = new EloCalculator($killer->statistics->elo, $victim->statistics->elo, EloCalculator::WIN, EloCalculator::LOST);
                 $calculateResults = $calculateElo->getNewRatings();
                 //Killer Statistical Calculations
-                $killer->elo = round(max($calculateResults['Killer'], 0), 2);
-                if ($killer->total_deads == 0) {
-                    $killer->kd = null;
+                $killer->statistics()->update([
+                    'elo' => round(max($calculateResults['Killer'], 0), 2),
+                ]);
+                if ($killer->statistics->total_deads == 0 || $killer->statistics->total_kills) {
+                    $killer->statistics()->update([
+                        'kd' => null,
+                    ]);
                 } else {
-                    $killer->kd = round($killer->total_kills / $killer->total_deads);
+                    $killer->statistics()->update([
+                        'kd' => round($killer->statistics->total_kills / $killer->statistics->total_deads),
+                    ]);
                 }
-                $killer->save();
                 //Victim Statistical Calculations
-                $victim->elo = round(max($calculateResults['Victim'], 0), 2);
-                if ($victim->total_deads == 0) {
-                    $victim->kd = null;
+                $victim->statistics()->update([
+                    'elo' => round(max($calculateResults['Victim'], 0), 2),
+                ]);
+                if ($victim->statistics->total_deads == 0 || $victim->statistics->total_kills) {
+                    $victim->statistics()->update([
+                        'kd' => null,
+                    ]);
                 } else {
-                    $victim->kd = round($victim->total_kills / $victim->total_deads, 2);
+                    $victim->statistics()->update([
+                        'kd' => round($victim->statistics->total_kills / $victim->statistics->total_deads, 2),
+                    ]);
                 }
-                $victim->save();
-
-                return response()->json([
-                    'status' => 'Success',
-                    'response' => 'Kill Log Added'
-                ], 200);
-            } else {
-                return response()->json([
-                    'status' => 'Fail',
-                    'response' => 'Something went Wrong'
-                ], 200);
+                return $this->successResponse(['status' => 'Success', 'response' => 'Kill Log Added'], 200);
+            } catch (\Throwable $th) {
+                return $this->errorResponse(['status' => 'Failed', 'response' => 'Something went wrong'], 500);
             }
         } elseif (count($loginRows) >= 11 && $loginRows[1] !== 'Game' && $loginRows[2] !== 'version:' && count($checkEventResult) === 1 && count($checkedLocation) === 1) {
             //Date pharse
@@ -275,23 +277,23 @@ class LogController extends Controller
             $date1 = str_replace('.', ':', $loginDate[1]);
             $fullDate = $date0 . ' ' . $date1;
             //Victim SteamID Pharse
-            $catchVictimSteamID = preg_match('/\ \([\d]{17}\), Killer/', $request['logLine'], $catchedVictimSteamID);
+            preg_match('/\ \([\d]{17}\), Killer/', $request['logLine'], $catchedVictimSteamID);
             $victimSteamID = str_replace('(', '', str_replace(',', '', str_replace(')', '', explode(' ', $catchedVictimSteamID[0]))))[1];
             $victim = User::where('steamid', $victimSteamID)->first();
             //Killer SteamID Pharse
-            $catchKillerSteamID = preg_match('/\ \([\d]{17}\) S\[KillerLoc\:/', $request['logLine'], $catchedKillerSteamID);
+            preg_match('/\ \([\d]{17}\) S\[KillerLoc\:/', $request['logLine'], $catchedKillerSteamID);
             $killerSteamID = str_replace('(', '', str_replace(')', '', explode(' ', $catchedKillerSteamID[0])))[1];
             $killer = User::where('steamid', $killerSteamID)->first();
 
             //Killer Location Pharse
-            $catchKillerLocation = preg_match('/\ S\[KillerLoc: [\d\.-]+, [\d\.-]+, [\d\.-]+, VictimLoc:/', $request['logLine'], $catchedKillerLocation);
+            preg_match('/\ S\[KillerLoc: [\d\.-]+, [\d\.-]+, [\d\.-]+, VictimLoc:/', $request['logLine'], $catchedKillerLocation);
             $killerLocation = explode(' ', str_replace(',', '', str_replace(' S[KillerLoc:', '', $catchedKillerLocation[0])));
             $killerX = $killerLocation[1];
             $killerY = $killerLocation[2];
             $killerZ = $killerLocation[3];
 
             //Victim Location Pharse
-            $catchVictimLocation = preg_match('/, VictimLoc: [\d\.-]+, [\d\.-]+, [\d\.-]+\] C\[KillerLoc:/', $request['logLine'], $catchedVictimLocation);
+            preg_match('/, VictimLoc: [\d\.-]+, [\d\.-]+, [\d\.-]+\] C\[KillerLoc:/', $request['logLine'], $catchedVictimLocation);
             $victimLocation = explode(' ', str_replace(']', '', str_replace(',', '', str_replace(', VictimLoc: ', '', $catchedVictimLocation[0]))));
             $victimX = $victimLocation[0];
             $victimY = $victimLocation[1];
@@ -299,67 +301,67 @@ class LogController extends Controller
 
             if (is_null($victim) || is_null($killer)) {
                 //Return Failed Response
-                return response()->json([
-                    'status' => 'Failed',
-                    'response' => 'User not found'
-                ], 404);
+                return $this->errorResponse(['status' => 'Failed', 'response' => 'User not found'], 404);
             }
 
-            $kill = Kill::create([
-                'killer_id' => $killer->id,
-                'killerX' => $killerX,
-                'killerY' => $killerY,
-                'killerZ' => $killerZ,
-                'victim_id' => $victim->id,
-                'victimX' => $victimX,
-                'victimY' => $victimY,
-                'victimZ' => $victimZ,
-                'type' => Kill::IS_EVENT,
-                'date' => $fullDate
-            ]);
-            if ($kill) {
-                if ($victim->currency >= 10) {
+            try {
+                Kill::create([
+                    'killer_id' => $killer->id,
+                    'killerX' => $killerX,
+                    'killerY' => $killerY,
+                    'killerZ' => $killerZ,
+                    'victim_id' => $victim->id,
+                    'victimX' => $victimX,
+                    'victimY' => $victimY,
+                    'victimZ' => $victimZ,
+                    'type' => Kill::IS_EVENT,
+                    'date' => $fullDate
+                ]);
+
+                if ($victim->currency >= 3) {
                     //Give coins to killer
-                    $killer->currency = $killer->currency + 2.5;
+                    $killer->addCredits(2.5);
                     //Remove coins from victim
-                    $victim->currency = $victim->currency - 2.5;
+                    $victim->deductCredits(2.5);
                 }
-                $killer->total_kills = $killer->total_kills + 1;
-                $victim->total_deads = $victim->total_deads + 1;
-                $calculateElo = new EloCalculator($killer->elo, $victim->elo, EloCalculator::DRAW, EloCalculator::DRAW);
+                $killer->addKill(1);
+                $victim->addDeath(1);
+                $calculateElo = new EloCalculator($killer->statistics->elo, $victim->statistics->elo, EloCalculator::DRAW, EloCalculator::DRAW);
                 $calculateResults = $calculateElo->getNewRatings();
                 //Killer Statistical Calculations
-                $killer->elo = round(max($calculateResults['Killer'], 0), 2);
-                if ($killer->total_deads == 0) {
-                    $killer->kd = null;
+                $killer->statistics()->update([
+                    'elo' => round(max($calculateResults['Killer'], 0), 2),
+                ]);
+                if ($killer->statistics->total_deads == 0 || $killer->statistics->total_kills) {
+                    $killer->statistics()->update([
+                        'kd' => null,
+                    ]);
                 } else {
-                    $killer->kd = round($killer->total_kills / $killer->total_deads);
+                    $killer->statistics()->update([
+                        'kd' => round($killer->statistics->total_kills / $killer->statistics->total_deads),
+                    ]);
                 }
-                $killer->save();
                 //Victim Statistical Calculations
-                $victim->elo = round(max($calculateResults['Victim'], 0), 2);
-                if ($victim->total_deads == 0) {
-                    $victim->kd = null;
+                $victim->statistics()->update([
+                    'elo' => round(max($calculateResults['Victim'], 0), 2),
+                ]);
+                if ($victim->statistics->total_deads == 0 || $victim->statistics->total_kills) {
+                    $victim->statistics()->update([
+                        'kd' => null,
+                    ]);
                 } else {
-                    $victim->kd = round($victim->total_kills / $victim->total_deads, 2);
+                    $victim->statistics()->update([
+                        'kd' => round($victim->statistics->total_kills / $victim->statistics->total_deads, 2),
+                    ]);
                 }
-                $victim->save();
-                return response()->json([
-                    'status' => 'Success',
-                    'response' => 'Kill Log Added'
-                ], 200);
-            } else {
-                return response()->json([
-                    'status' => 'Fail',
-                    'response' => 'Something went Wrong'
-                ], 200);
+                return $this->successResponse(['status' => 'Success', 'response' => 'Kill Log Added'], 200);
+            } catch (\Throwable $th) {
+                return $this->errorResponse(['status' => 'Failed', 'response' => 'Something went wrong'], 500);
             }
+
         } elseif (count($loginRows) >= 4 && $loginRows[1] === 'Game' && $loginRows[2] === 'version:' || count($checkedLocation) === 0) {
             //Return Failed Response
-            return response()->json([
-                'status' => 'Failed',
-                'response' => 'Line Is Not The Right Line'
-            ], 406);
+            return $this->errorResponse(['status' => 'Failed', 'response' => 'Line Is Not The Right Line'], 406);
         }
     }
 
@@ -368,10 +370,7 @@ class LogController extends Controller
         $loginRows = str_replace("'", '', explode(' ', $request['logLine']));
         if (count($loginRows) >= 4 && $loginRows[1] === 'Game' && $loginRows[2] === 'version:') {
             //Return Failed Response
-            return response()->json([
-                'status' => 'Failed',
-                'response' => 'Game Version Line'
-            ], 406);
+            return $this->errorResponse(['status' => 'Failed', 'response' => 'Game Version Line'], 406);
         } elseif (count($loginRows) >= 4 && $loginRows[1] !== 'Game' && $loginRows[2] !== 'version:') {
             //Date pharse
             $loginRows[0] = str_replace(':', '', $loginRows[0]);
@@ -380,35 +379,26 @@ class LogController extends Controller
             $date1 = str_replace('.', ':', $loginDate[1]);
             $fullDate = $date0 . ' ' . $date1;
             //SteamId pharse
-            $catchSteamID = preg_match("/[\d\.-]+\: \\'[\d]*[\d]{17}\:/", $request['logLine'], $catchedSteamID);
+            preg_match("/[\d\.-]+\: \\'[\d]*[\d]{17}\:/", $request['logLine'], $catchedSteamID);
             $adminSteamID = str_replace("'", '', str_replace(':', '', explode(' ', $catchedSteamID[0])))[1];
             //Command pharse
-            $catchAdminCommand = preg_match("/\'\ Command: \'.+/", $request['logLine'], $catchedAdminCommand);
+            preg_match("/\'\ Command: \'.+/", $request['logLine'], $catchedAdminCommand);
             $adminCommand = str_replace("'", '', explode(': ', $catchedAdminCommand[0]))[1];
-            //Getting admin
-            $admin = User::where('steamid', $adminSteamID)->first();
-            $adminLog = Admin::create([
-                'admin_id' => $admin->id,
-                'command' => $adminCommand,
-                'date' => $fullDate
-            ]);
-            if ($adminLog) {
-                return response()->json([
-                    'status' => 'Success',
-                    'response' => 'Admin Log Added'
-                ], 200);
-            } else {
-                return response()->json([
-                    'status' => 'Fail',
-                    'response' => 'Something went Wrong'
-                ], 200);
+            try {
+                //Getting admin
+                $admin = User::where('steamid', $adminSteamID)->first();
+                Admin::create([
+                    'admin_id' => $admin->id,
+                    'command' => $adminCommand,
+                    'date' => $fullDate
+                ]);
+                return $this->successResponse(['status' => 'Success', 'response' => 'Admin Log Added'], 200);
+            } catch (\Throwable $th) {
+                return $this->errorResponse(['status' => 'Failed', 'response' => 'Something went wrong'], 500);
             }
         } else {
             //Return Failed Response
-            return response()->json([
-                'status' => 'Failed',
-                'response' => 'Line Is Not The Right Line'
-            ], 406);
+            return $this->errorResponse(['status' => 'Failed', 'response' => 'Line Is Not The Right Line'], 406);
         }
     }
 }

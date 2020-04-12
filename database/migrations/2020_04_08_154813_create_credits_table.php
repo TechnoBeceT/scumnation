@@ -16,7 +16,7 @@ class CreateCreditsTable extends Migration
         Schema::create('credits', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->integer('amount')->default(0);
+            $table->decimal('amount',9,2)->default(100);
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

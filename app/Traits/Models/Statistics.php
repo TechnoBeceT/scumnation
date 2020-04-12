@@ -41,7 +41,7 @@ trait Statistics
      * @param $amount
      * @return mixed
      */
-    public function addDead($amount)
+    public function addDeath($amount)
     {
         $statistics = Statistic::where('user_id', '=', $this->id)->first();
         $statistics->total_deads = $statistics->total_deads + $amount;
