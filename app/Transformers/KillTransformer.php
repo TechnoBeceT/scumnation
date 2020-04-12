@@ -33,6 +33,8 @@ class KillTransformer extends TransformerAbstract
     public function transform(Kill $kill)
     {
         return [
+            'id'        => md5($kill->id),
+            'type'      => auth()->user()->id == $kill->killer_id ? 'kill' : 'death',
             'killer'    => $kill->killer->nickname,
             'killerX'   => $kill->killerX,
             'killerY'   => $kill->killerY,

@@ -39,6 +39,7 @@ class UserTransformer extends TransformerAbstract
             'characterName'     => (string)$user->nickname,
             'steamName'         => (string)$user->steam_name,
             'avatar'            => (string)$user->avatar,
+            'steamID'           => (string)$user->steamid,
             'name'              => (string)$user->name,
             'surname'           => (string)$user->surname,
             'email'             => (string)$user->email,
