@@ -279,7 +279,7 @@ class LogController extends Controller
                 ]);
                 if ($killer->statistics->total_deads == 0) {
                     $killer->statistics()->update([
-                        'kd' => $killer->statistics->total_kills,
+                        'kd' => $killer->statistics->total_kills >= 1 ? $killer->statistics->total_kills : null,
                     ]);
                 } else {
                     $killer->statistics()->update([
@@ -292,7 +292,7 @@ class LogController extends Controller
                 ]);
                 if ($victim->statistics->total_deads == 0) {
                     $victim->statistics()->update([
-                        'kd' => $victim->statistics->total_kills,
+                        'kd' => $victim->statistics->total_kills >= 1 ? $victim->statistics->total_kills : null,
                     ]);
                 } else {
                     $victim->statistics()->update([
@@ -392,7 +392,7 @@ class LogController extends Controller
                 ]);
                 if ($killer->statistics->total_deads == 0) {
                     $killer->statistics()->update([
-                        'kd' => $killer->statistics->total_kills,
+                        'kd' => $killer->statistics->total_kills >= 1 ? $killer->statistics->total_kills : null,
                     ]);
                 } else {
                     $killer->statistics()->update([
@@ -405,7 +405,7 @@ class LogController extends Controller
                 ]);
                 if ($victim->statistics->total_deads == 0) {
                     $victim->statistics()->update([
-                        'kd' => $victim->statistics->total_kills,
+                        'kd' => $victim->statistics->total_kills >= 1 ? $victim->statistics->total_kills : null,
                     ]);
                 } else {
                     $victim->statistics()->update([
