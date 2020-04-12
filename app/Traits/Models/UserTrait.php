@@ -7,6 +7,9 @@ use App\Models\Users\Statistic;
 
 trait UserTrait
 {
+
+    
+
     /**
      * Handles extending the create method in order to create a User Credits record
      *

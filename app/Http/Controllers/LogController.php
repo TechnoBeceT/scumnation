@@ -7,6 +7,7 @@ use App\Models\Finance\History;
 use App\Models\Logs\Admin;
 use App\Models\Logs\Kill;
 use App\Models\Logs\Login;
+use App\Models\Users\Statistic;
 use App\Models\Users\User;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
@@ -67,9 +68,9 @@ class LogController extends Controller
                     }
                     //Create New Login Log
                     Login::create([
-                        'user_id' => $user->id,
-                        'date' => $fullDate,
-                        'action' => Login::LOGGED_IN
+                        'user_id'   => $user->id,
+                        'date'      => $fullDate,
+                        'action'    => Login::LOGGED_IN
                     ]);
                     //Return Success Response
                     return $this->successResponse(['status' => 'Success', 'response' => 'Login Log Added'], 200);
@@ -163,10 +164,10 @@ class LogController extends Controller
                     //Give calculated coins
                     $checkUser->addCredits($addToCurrency);
                     History::create([
-                        'user_id'   => $checkUser->id,
-                        'type'      => History::PLAYTIME,
+                        'user_id'       => $checkUser->id,
+                        'type'          => History::PLAYTIME,
                         'action_type'   => History::ADD,
-                        'amount'    => $addToCurrency
+                        'amount'        => $addToCurrency
                     ]);
                     //Return Success Response
                     return $this->successResponse(['status' => 'Success', 'response' => 'Login Log Added'], 200);
@@ -225,35 +226,35 @@ class LogController extends Controller
             try {
                 Kill::create([
                     'killer_id' => $killer->id,
-                    'killerX' => $killerX,
-                    'killerY' => $killerY,
-                    'killerZ' => $killerZ,
+                    'killerX'   => $killerX,
+                    'killerY'   => $killerY,
+                    'killerZ'   => $killerZ,
                     'victim_id' => $victim->id,
-                    'victimX' => $victimX,
-                    'victimY' => $victimY,
-                    'victimZ' => $victimZ,
-                    'type' => Kill::NOT_EVENT,
-                    'date' => $fullDate
+                    'victimX'   => $victimX,
+                    'victimY'   => $victimY,
+                    'victimZ'   => $victimZ,
+                    'type'      => Kill::NOT_EVENT,
+                    'date'      => $fullDate
                 ]);
 
                 if ($victim->credit->amount >= 10) {
                     //Give coins to killer
                     $killer->addCredits(10);
                     History::create([
-                        'user_id'   => $killer->id,
-                        'type'      => History::KILL,
-                        'victim_id' => $victim->id,
+                        'user_id'       => $killer->id,
+                        'type'          => History::KILL,
+                        'victim_id'     => $victim->id,
                         'action_type'   => History::ADD,
-                        'amount'    => 10
+                        'amount'        => 10
                     ]);
                     //Remove coins from victim
                     $victim->deductCredits(10);
                     History::create([
-                        'user_id'   => $victim->id,
-                        'type'      => History::DEATH,
-                        'killer_id' => $killer->id,
+                        'user_id'       => $victim->id,
+                        'type'          => History::DEATH,
+                        'killer_id'     => $killer->id,
                         'action_type'   => History::DEDUCT,
-                        'amount'    => 10
+                        'amount'        => 10
                     ]);
                 }
                 $killer->addKill(1);
@@ -261,8 +262,18 @@ class LogController extends Controller
                 $calculateElo = new EloCalculator($killer->statistics->elo, $victim->statistics->elo, EloCalculator::WIN, EloCalculator::LOST);
                 $calculateResults = $calculateElo->getNewRatings();
                 //Killer Statistical Calculations
+                $newRatingKiller = round(max($calculateResults['Killer'], 0), 2);
+                $newRatingVictim = round(max($calculateResults['Victim'], 0), 2);
+                $checkNewRatingKiller = Statistic::where('elo', $newRatingKiller)->first();
+                if($checkNewRatingKiller) {
+                    $newRatingKiller = round($newRatingKiller + (rand(0, 10) / 10),2);
+                }
+                $checkNewRatingVictim = Statistic::where('elo', $newRatingVictim)->first();
+                if($checkNewRatingVictim) {
+                    $newRatingVictim = round($newRatingVictim + (rand(0, 10) / 10),2);
+                }
                 $killer->statistics()->update([
-                    'elo' => round(max($calculateResults['Killer'], 0), 2),
+                    'elo' => $newRatingKiller,
                 ]);
                 if ($killer->statistics->total_deads == 0) {
                     $killer->statistics()->update([
@@ -270,12 +281,12 @@ class LogController extends Controller
                     ]);
                 } else {
                     $killer->statistics()->update([
-                        'kd' => round($killer->statistics->total_kills / $killer->statistics->total_deads),
+                        'kd' => round($killer->statistics->total_kills / $killer->statistics->total_deads, 2),
                     ]);
                 }
                 //Victim Statistical Calculations
                 $victim->statistics()->update([
-                    'elo' => round(max($calculateResults['Victim'], 0), 2),
+                    'elo' => $newRatingVictim,
                 ]);
                 if ($victim->statistics->total_deads == 0) {
                     $victim->statistics()->update([
@@ -328,15 +339,15 @@ class LogController extends Controller
             try {
                 Kill::create([
                     'killer_id' => $killer->id,
-                    'killerX' => $killerX,
-                    'killerY' => $killerY,
-                    'killerZ' => $killerZ,
+                    'killerX'   => $killerX,
+                    'killerY'   => $killerY,
+                    'killerZ'   => $killerZ,
                     'victim_id' => $victim->id,
-                    'victimX' => $victimX,
-                    'victimY' => $victimY,
-                    'victimZ' => $victimZ,
-                    'type' => Kill::IS_EVENT,
-                    'date' => $fullDate
+                    'victimX'   => $victimX,
+                    'victimY'   => $victimY,
+                    'victimZ'   => $victimZ,
+                    'type'      => Kill::IS_EVENT,
+                    'date'      => $fullDate
                 ]);
 
                 if ($victim->currency >= 3) {
@@ -352,11 +363,11 @@ class LogController extends Controller
                     //Remove coins from victim
                     $victim->deductCredits(2.5);
                     History::create([
-                        'user_id'   => $victim->id,
-                        'type'      => History::DEATH,
-                        'killer_id' => $killer->id,
+                        'user_id'       => $victim->id,
+                        'type'          => History::DEATH,
+                        'killer_id'     => $killer->id,
                         'action_type'   => History::DEDUCT,
-                        'amount'    => 2.5
+                        'amount'        => 2.5
                     ]);
                 }
                 $killer->addKill(1);
@@ -364,8 +375,18 @@ class LogController extends Controller
                 $calculateElo = new EloCalculator($killer->statistics->elo, $victim->statistics->elo, EloCalculator::DRAW, EloCalculator::DRAW);
                 $calculateResults = $calculateElo->getNewRatings();
                 //Killer Statistical Calculations
+                $newRatingKiller = round(max($calculateResults['Killer'], 0), 2);
+                $newRatingVictim = round(max($calculateResults['Victim'], 0), 2);
+                $checkNewRatingKiller = Statistic::where('elo', $newRatingKiller)->first();
+                if($checkNewRatingKiller) {
+                    $newRatingKiller = round($newRatingKiller + (rand(0, 10) / 10),2);
+                }
+                $checkNewRatingVictim = Statistic::where('elo', $newRatingVictim)->first();
+                if($checkNewRatingVictim) {
+                    $newRatingVictim = round($newRatingVictim + (rand(0, 10) / 10),2);
+                }
                 $killer->statistics()->update([
-                    'elo' => round(max($calculateResults['Killer'], 0), 2),
+                    'elo' => $newRatingKiller,
                 ]);
                 if ($killer->statistics->total_deads == 0) {
                     $killer->statistics()->update([
@@ -373,12 +394,12 @@ class LogController extends Controller
                     ]);
                 } else {
                     $killer->statistics()->update([
-                        'kd' => round($killer->statistics->total_kills / $killer->statistics->total_deads),
+                        'kd' => round($killer->statistics->total_kills / $killer->statistics->total_deads, 2),
                     ]);
                 }
                 //Victim Statistical Calculations
                 $victim->statistics()->update([
-                    'elo' => round(max($calculateResults['Victim'], 0), 2),
+                    'elo' => $newRatingVictim,
                 ]);
                 if ($victim->statistics->total_deads == 0) {
                     $victim->statistics()->update([
@@ -423,9 +444,9 @@ class LogController extends Controller
                 //Getting admin
                 $admin = User::where('steamid', $adminSteamID)->first();
                 Admin::create([
-                    'admin_id' => $admin->id,
-                    'command' => $adminCommand,
-                    'date' => $fullDate
+                    'admin_id'  => $admin->id,
+                    'command'   => $adminCommand,
+                    'date'      => $fullDate
                 ]);
                 return $this->successResponse(['status' => 'Success', 'response' => 'Admin Log Added'], 200);
             } catch (\Throwable $th) {

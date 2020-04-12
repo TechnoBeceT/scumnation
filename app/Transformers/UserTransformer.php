@@ -33,7 +33,6 @@ class UserTransformer extends TransformerAbstract
      */
     public function transform(User $user)
     {
-        $positions = Statistic::orderBy('elo', 'desc')->pluck('user_id')->toArray();
         return [
             'isAdmin'           => (bool)false,
             'characterName'     => (string)$user->nickname,
@@ -48,9 +47,9 @@ class UserTransformer extends TransformerAbstract
             'lastLogout'        => (string)$user->statistics->last_logout,
             'totalDeaths'       => (integer)$user->statistics->total_deads,
             'totalKills'        => (integer)$user->statistics->total_kills,
-            'killDeathRatio'    => (float)$user->statistics->kd,
+            'killDeathRatio'    => $user->statistics->kd,
             'eloStat'           => (float)$user->statistics->elo,
-            'rank'              => (int)array_search($user->id, $positions) + 1
+            'rank'              => (int)$user->rank
         ];
     }
 

@@ -15,6 +15,7 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable, UserTrait, Finance, Statistics;
 
+    protected $appends = ['rank'];
     public $transformer = UserTransformer::class;
 
     /**
@@ -63,4 +64,11 @@ class User extends Authenticatable implements JWTSubject
      {
         return [];
      }
+
+     public function getRankAttribute(){
+        $collection = collect(Statistic::orderBy('elo', 'DESC')->get());
+        $data       = $collection->where('user_id', $this->id);
+        $value      = $data->keys()->first() + 1;
+        return $value;
+    }
 }
