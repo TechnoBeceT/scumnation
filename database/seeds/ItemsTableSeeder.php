@@ -376,7 +376,7 @@ class ItemsTableSeeder extends Seeder
 			['category_id' => 23, 'item_name' => 'Small Improvised Backpack', 'spawn_code' => '#SpawnItem Improvised_Bag_Small_02', 'item_image' => url('/images/items/Small_Improvised_Backpack.png')],			
 			['category_id' => 24, 'item_name' => 'Improvised Quiver 24 Arrows', 'spawn_code' => '#SpawnItem Improvised_Quiver_01', 'item_image' => url('/images/items/Animal_Skin_Quiver.png')],
 			['category_id' => 24, 'item_name' => 'Improvised Quiver 12 Arrows', 'spawn_code' => '#SpawnItem Improvised_Quiver_02', 'item_image' => url('/images/items/Improvised_Quiver.png')],
-			['category_id' => 24, 'item_name' => 'Militry Quiver', 'spawn_code' => '#SpawnItem Militry_Quiver', 'item_image' => url('/images/items/.png')],			
+			['category_id' => 24, 'item_name' => 'Military Quiver', 'spawn_code' => '#SpawnItem Militry_Quiver', 'item_image' => url('/images/items/Military_Quiver.png')],			
 			['category_id' => 25, 'item_name' => 'Animal Skin Jacket', 'spawn_code' => '#SpawnItem Bear_Improvised_Jacket', 'item_image' => url('/images/items/Animal_Skin_Jacket.png')],			
 			['category_id' => 25, 'item_name' => 'Camouflage Jacket Forest Camo', 'spawn_code' => '#SpawnItem Camouflage_Jacket_01', 'item_image' => url('/images/items/Camouflage_Jacket_01.png')],
 			['category_id' => 25, 'item_name' => 'Camouflage Jacket Navy Camo', 'spawn_code' => '#SpawnItem Camouflage_Jacket_02', 'item_image' => url('/images/items/Camouflage_Jacket_02.png')],
