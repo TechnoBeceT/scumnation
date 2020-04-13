@@ -804,7 +804,6 @@ class ItemsTableSeeder extends Seeder
 			['category_id' => 44, 'item_name' => 'Glue', 'spawn_code' => '#SpawnItem Glue', 'item_image' => url('/images/items/Glue.png')],
 			['category_id' => 44, 'item_name' => 'Gun Powder', 'spawn_code' => '#SpawnItem Gun_Powder', 'item_image' => url('/images/items/Gun_Powder.png')],
 			['category_id' => 44, 'item_name' => 'Improvised Rope', 'spawn_code' => '#SpawnItem Improvised_Rope', 'item_image' => url('/images/items/Improvised_Rope.png')],
-			['category_id' => 44, 'item_name' => '', 'spawn_code' => '', 'item_image' => url('/images/items/.png')],
 			['category_id' => 44, 'item_name' => 'Lead Plate', 'spawn_code' => '#SpawnItem Lead_Plate', 'item_image' => url('/images/items/Lead_Plate.png')],
 			['category_id' => 44, 'item_name' => 'Metal Arrow Tips', 'spawn_code' => '#SpawnItem Bundle_Of_Metal_Tips', 'item_image' => url('/images/items/Metal_Arrow_Tips.png')],
 			['category_id' => 44, 'item_name' => 'Metal Scrap 1', 'spawn_code' => '#SpawnItem Metal_Scrap_01', 'item_image' => url('/images/items/Metal_Scrap_01.png')],
