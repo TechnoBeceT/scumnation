@@ -23,6 +23,8 @@ class CategoryTypesTableSeeder extends Seeder
 			['type_name' => 'Vehicles'],
         ];
         
-        DB::table('category_types')->create($categoryTypes);
+        foreach ($categoryTypes as $key => $categoryType) {
+			CategoryType::create($categoryType);
+		}
     }
 }

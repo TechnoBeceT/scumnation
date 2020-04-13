@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Trading\Category;
 use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
@@ -63,7 +64,10 @@ class CategoriesTableSeeder extends Seeder
 			['category_type' => 7, 'category_name' => 'Pickups'],
 			['category_type' => 7, 'category_name' => 'Quads'],
 			['category_type' => 7, 'category_name' => 'Other'],
+			['category_type' => 1, 'category_name' => 'Ammunition']
         ];
-        DB::table('categories')->create($categories);
+        foreach ($categories as $key => $category) {
+			Category::create($category);
+		}
     }
 }

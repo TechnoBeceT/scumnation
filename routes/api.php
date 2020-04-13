@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Trading\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,9 @@ Route::group([ 'middleware' => 'api'], function ($router) {
 
     Route::resource('ranks', 'RankController', ['only' => 'index']);
     Route::resource('killFeed', 'KillFeedController', ['only' => 'index']);
+    Route::get('items', function () {
+        return Item::all();
+    });
     
 
     /*
