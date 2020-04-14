@@ -2,6 +2,7 @@
 
 namespace App\Traits\Models;
 
+use App\Models\Finance\Bounty;
 use App\Models\Finance\Credit;
 use App\Models\Users\Statistic;
 
@@ -25,6 +26,9 @@ trait UserTrait
         $statistics = New Statistic();
         $statistics->user_id = $user->id;
         $statistics->save();
+        $bounty = New Bounty();
+        $bounty->user_id = $user->id;
+        $bounty->save();
 
         return $user;
     }

@@ -50,10 +50,6 @@ Route::group([ 'middleware' => 'api'], function ($router) {
 
     Route::resource('ranks', 'RankController', ['only' => 'index']);
     Route::resource('killFeed', 'KillFeedController', ['only' => 'index']);
-    Route::get('items', function () {
-        return Item::all();
-    });
-    
 
     /*
     |--------------------------------------------------------------------------
@@ -64,5 +60,7 @@ Route::group([ 'middleware' => 'api'], function ($router) {
     Route::group(['middleware' => ['auth:api']], function () {
         Route::resource('kills', 'KillController', ['only' => 'index']);
         Route::resource('history', 'HistoryController', ['only' => 'index']);
+        Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
+        Route::resource('users.bounty', 'UserController', ['only' => ['index', 'store']]);
     });
 });

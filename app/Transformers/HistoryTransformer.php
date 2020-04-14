@@ -37,19 +37,25 @@ class HistoryTransformer extends TransformerAbstract
                 return [
                     'type'              => (string)$history->action_type,
                     'amount'            => (float)$history->amount,
-                    'description'       => (string)'Credit for playing time'
+                    'description'       => (string)__('messages.playTimeCredit')
                 ];
             case History::KILL:
                 return [
                     'type'              => (string)$history->action_type,
                     'amount'            => (float)$history->amount,
-                    'description'       => (string)'Credit for killing ' . $history->victim->nickname
+                    'description'       => (string) __('messages.killCredit', ['value' => $history->victim->nickname])
                 ];
             case History::DEATH:
                 return [
                     'type'              => (string)$history->action_type,
                     'amount'            => (float)$history->amount,
-                    'description'       => (string)'Credit removed for death. Killer: ' . $history->killer->nickname
+                    'description'       => (string)__('messages.creditDeath', ['value' => $history->killer->nickname])
+                ];
+            case History::BOUNTY:
+                return [
+                    'type'              => (string)$history->action_type,
+                    'amount'            => (float)$history->amount,
+                    'description'       => (string)$history->action_type === History::DEDUCT ? __('messages.creditBountySet', ['value' => $history->victim->nickname]) : __('messages.creditBountyEarn', ['value' => $history->victim->nickname])
                 ];
         }
     }

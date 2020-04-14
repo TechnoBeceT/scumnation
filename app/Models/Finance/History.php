@@ -12,6 +12,7 @@ class History extends Model
     const DEATH     = 'Death';
     const PURCHASE  = 'Purchase';
     const ORDER     = 'Order';
+    const BOUNTY    = 'Bounty';
     const PLAYTIME  = 'Playtime';
     const DEDUCT    = 'Deduct';
     const ADD       = 'Add';

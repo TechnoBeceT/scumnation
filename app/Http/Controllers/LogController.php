@@ -259,6 +259,19 @@ class LogController extends Controller
                         'amount'        => 10
                     ]);
                 }
+
+                if ($victim->bounty->amount >= 1) {
+                    $killer->addCredits($victim->bounty->amount);
+                    $victim->clearBounty();
+                    History::create([
+                        'user_id'       => $killer->id,
+                        'type'          => History::BOUNTY,
+                        'killer_id'     => $killer->id,
+                        'victim_id'     => $victim->id,
+                        'action_type'   => History::ADD,
+                        'amount'        => $victim->bounty->amount
+                    ]);
+                }
                 $killer->addKill(1);
                 $victim->addDeath(1);
                 $calculateElo = new EloCalculator($killer->statistics->elo, $victim->statistics->elo, EloCalculator::WIN, EloCalculator::LOST);

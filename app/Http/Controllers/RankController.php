@@ -17,7 +17,11 @@ class RankController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        if (request()->has('search')) {
+            $users = User::whereLike(['steam_name', 'nickname', 'steamid'], request()->search)->get();
+        } else {
+            $users = User::all();
+        }
         $users = $users->sortBy('rank');
         return $this->showAll($users);
     }

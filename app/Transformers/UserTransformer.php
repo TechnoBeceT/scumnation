@@ -48,7 +48,8 @@ class UserTransformer extends TransformerAbstract
             'lastLogout'        => (string)$user->statistics->last_logout,
             'totalDeaths'       => (integer)$user->statistics->total_deads,
             'totalKills'        => (integer)$user->statistics->total_kills,
-            'killDeathRatio'    => $user->statistics->kd,
+            'killDeathRatio'    => (integer)$user->statistics->kd,
+            'bounty'            => (integer)$user->bounty->amount,
             'rank'              => (int)$user->rank
         ];
     }
@@ -62,11 +63,7 @@ class UserTransformer extends TransformerAbstract
             'name'              => 'name',
             'surname'           => 'surname',
             'email'             => 'email',
-            'lastLogin'         => 'statistics.last_login',
-            'lastLogout'        => 'statistics.last_logout',
-            'totalDeaths'       => 'statistics.total_deads',
-            'totalKills'        => 'statistics.total_kills',
-            'killDeathRatio'    => 'statistics.kd',
+            'steamURL'          => 'profile_url',
         ];
 
         return isset($attributes[$index]) ? $attributes[$index] : null;
