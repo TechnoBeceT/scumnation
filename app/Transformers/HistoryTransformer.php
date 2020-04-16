@@ -38,28 +38,32 @@ class HistoryTransformer extends TransformerAbstract
                     'id'                => (int)$history->id,
                     'type'              => (string)$history->action_type,
                     'amount'            => (float)$history->amount,
-                    'description'       => (string)__('messages.playTimeCredit')
+                    'description'       => (string)__('messages.playTimeCredit'),
+                    'createdAt'         => $history->created_at
                 ];
             case History::KILL:
                 return [
                     'id'                => (int)$history->id,
                     'type'              => (string)$history->action_type,
                     'amount'            => (float)$history->amount,
-                    'description'       => (string) __('messages.killCredit', ['value' => $history->victim->nickname])
+                    'description'       => (string) __('messages.killCredit', ['value' => $history->victim->nickname]),
+                    'createdAt'         => $history->created_at
                 ];
             case History::DEATH:
                 return [
                     'id'                => (int)$history->id,
                     'type'              => (string)$history->action_type,
                     'amount'            => (float)$history->amount,
-                    'description'       => (string)__('messages.creditDeath', ['value' => $history->killer->nickname])
+                    'description'       => (string)__('messages.creditDeath', ['value' => $history->killer->nickname]),
+                    'createdAt'         => $history->created_at
                 ];
             case History::BOUNTY:
                 return [
                     'id'                => (int)$history->id,
                     'type'              => (string)$history->action_type,
                     'amount'            => (float)$history->amount,
-                    'description'       => (string)$history->action_type === History::DEDUCT ? __('messages.creditBountySet', ['value' => $history->victim->nickname]) : __('messages.creditBountyEarn', ['value' => $history->victim->nickname])
+                    'description'       => (string)$history->action_type === History::DEDUCT ? __('messages.creditBountySet', ['value' => $history->victim->nickname]) : __('messages.creditBountyEarn', ['value' => $history->victim->nickname]),
+                    'createdAt'         => $history->created_at
                 ];
         }
     }
