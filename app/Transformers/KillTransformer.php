@@ -33,30 +33,34 @@ class KillTransformer extends TransformerAbstract
     public function transform(Kill $kill)
     {
         return [
-            'id'        => (string)md5($kill->id),
-            'isKill'    => (bool)auth()->check() && auth()->user()->id == $kill->killer_id ? True : False,
-            'killer'    => (string)$kill->killer->nickname,
-            'killerX'   => (string)$kill->killerX,
-            'killerY'   => (string)$kill->killerY,
-            'victim'    => (string)$kill->victim->nickname,
-            'victimX'   => (string)$kill->victimX,
-            'victimY'   => (string)$kill->victimY,
-            'type'      => (string)$kill->type,
-            'date'      => (string)$kill->date
+            'id'            => (string)md5($kill->id),
+            'isKill'        => (bool)auth()->check() && auth()->user()->id == $kill->killer_id ? True : False,
+            'killer'        => (string)$kill->killer->nickname,
+            'killerAvatar'  => (string)$kill->killer->avatar,
+            'killerX'       => (string)$kill->killerX,
+            'killerY'       => (string)$kill->killerY,
+            'victim'        => (string)$kill->victim->nickname,
+            'victimAvatar'  => (string)$kill->victim->avatar,
+            'victimX'       => (string)$kill->victimX,
+            'victimY'       => (string)$kill->victimY,
+            'type'          => (string)$kill->type,
+            'date'          => (string)$kill->date
         ];
     }
 
     public static function originalAttribute($index)
     {
         $attributes = [
-            'killer'    => 'killer.nickname',
-            'killerX'   => 'killerX',
-            'killerY'   => 'killerY',
-            'victim'    => 'victim.nickname',
-            'victimX'   => 'victimX',
-            'victimY'   => 'victimY',
-            'type'      => 'type',
-            'date'      => 'date'
+            'killer'        => 'killer.nickname',
+            'killerAvatar'  => 'killer.avatar',
+            'killerX'       => 'killerX',
+            'killerY'       => 'killerY',
+            'victim'        => 'victim.nickname',
+            'victimAvatar'  => 'victim.avatar',
+            'victimX'       => 'victimX',
+            'victimY'       => 'victimY',
+            'type'          => 'type',
+            'date'          => 'date'
         ];
 
         return isset($attributes[$index]) ? $attributes[$index] : null;
