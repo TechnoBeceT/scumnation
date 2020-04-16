@@ -35,24 +35,28 @@ class HistoryTransformer extends TransformerAbstract
         switch ($history->type) {
             case History::PLAYTIME:
                 return [
+                    'id'                => (int)$history->id,
                     'type'              => (string)$history->action_type,
                     'amount'            => (float)$history->amount,
                     'description'       => (string)__('messages.playTimeCredit')
                 ];
             case History::KILL:
                 return [
+                    'id'                => (int)$history->id,
                     'type'              => (string)$history->action_type,
                     'amount'            => (float)$history->amount,
                     'description'       => (string) __('messages.killCredit', ['value' => $history->victim->nickname])
                 ];
             case History::DEATH:
                 return [
+                    'id'                => (int)$history->id,
                     'type'              => (string)$history->action_type,
                     'amount'            => (float)$history->amount,
                     'description'       => (string)__('messages.creditDeath', ['value' => $history->killer->nickname])
                 ];
             case History::BOUNTY:
                 return [
+                    'id'                => (int)$history->id,
                     'type'              => (string)$history->action_type,
                     'amount'            => (float)$history->amount,
                     'description'       => (string)$history->action_type === History::DEDUCT ? __('messages.creditBountySet', ['value' => $history->victim->nickname]) : __('messages.creditBountyEarn', ['value' => $history->victim->nickname])
@@ -63,6 +67,7 @@ class HistoryTransformer extends TransformerAbstract
     public static function originalAttribute($index)
     {
         $attributes = [
+            'id'                => 'id',
             'type'              => 'action_type',
             'amount'            => 'amount'
         ];
