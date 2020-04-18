@@ -15,10 +15,9 @@ class CreateSubscriberPlansTable extends Migration
     {
         Schema::create('subscriber_plans', function (Blueprint $table) {
             $table->id();
-            $table->string('stripe_plan_id')->nullable();
             $table->string('name');
-            $table->integer('price');
-            $table->integer('tier');
+            $table->decimal('price',9,2);
+            $table->string('tier');
             $table->text('description');
         });
     }

@@ -21,6 +21,7 @@ class CategoryTypesTableSeeder extends Seeder
 			['type_name' => 'Components'],
 			['type_name' => 'Tools'],
 			['type_name' => 'Vehicles'],
+			['type_name' => 'Packs'],
         ];
         
         foreach ($categoryTypes as $key => $categoryType) {

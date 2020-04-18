@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubscriberPlanContent extends Model
 {
+    const PACK          = 'Pack';
+    const FAMEPOINT     = 'Fame Point';
+    const COIN          = 'Coin';
+    const VEHICLE       = 'Vehicle';
+    const ITEM          = 'Item';
+
     public $timestamps = false;
 
     /**
@@ -14,7 +20,7 @@ class SubscriberPlanContent extends Model
      * @var array
      */
     protected $fillable = [
-        'plan_id', 'type', 'amount', 'code', 'days'
+        'plan_id', 'type', 'amount', 'item_id', 'pack_type_id', 'days'
     ];
 
     public $hidden = ['id'];

@@ -64,7 +64,10 @@ class CategoriesTableSeeder extends Seeder
 			['category_type' => 7, 'category_name' => 'Pickups'],
 			['category_type' => 7, 'category_name' => 'Quads'],
 			['category_type' => 7, 'category_name' => 'Other'],
-			['category_type' => 1, 'category_name' => 'Ammunition']
+			['category_type' => 1, 'category_name' => 'Ammunition'],
+			['category_type' => 8, 'category_name' => 'Weapon Packs'],
+			['category_type' => 8, 'category_name' => 'Medical Packs'],
+			['category_type' => 8, 'category_name' => 'Armor Packs'],
         ];
         foreach ($categories as $key => $category) {
 			Category::create($category);

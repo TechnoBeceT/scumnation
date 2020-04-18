@@ -19,4 +19,9 @@ return [
     'creditDeath'                   => 'Credit removed for death. Killer: :value',
     'creditBountySet'               => 'You did set bounty for :value',
     'creditBountyEarn'              => 'You get bounty killing for :value',
+    'cardAdded'                     => 'Card Added Succesfully.',
+    'cardFailed'                    => 'Something went wrong while adding card.',
+    'cantCreatePlan'                => 'Something went wrong while creating plan.',
+    'cantUpdatePlan'                => 'Something went wrong while updating plan.',
+    'planDeleted'                   => 'Plan deleted successfully.',
 ];

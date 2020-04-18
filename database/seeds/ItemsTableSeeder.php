@@ -825,6 +825,7 @@ class ItemsTableSeeder extends Seeder
 			['category_id' => 44, 'item_name' => 'Tinder', 'spawn_code' => '#SpawnItem Tinder', 'item_image' => url('/images/items/Tinder.png')],
 			['category_id' => 44, 'item_name' => 'Tree Bark Rope', 'spawn_code' => '#SpawnItem Improvised_Plant_Rope', 'item_image' => url('/images/items/Tree_Bark_Rope.png')],
 			['category_id' => 44, 'item_name' => 'Wire 1m', 'spawn_code' => '#SpawnItem Wire', 'item_image' => url('/images/items/Wire_1m.png')],
+			['category_id' => 44, 'item_name' => 'Enforced Lock', 'spawn_code' => '#SpawnItem Lock_Item_Advanced', 'item_image' => url('/images/items/Enforced_Lock.png')],
 			['category_id' => 45, 'item_name' => 'Advanced Compass', 'spawn_code' => '#SpawnItem BP_Compass_Advanced', 'item_image' => url('/images/items/Advanced_Compass.png')],
 			['category_id' => 45, 'item_name' => 'Basic Compass', 'spawn_code' => '#SpawnItem BP_Compass_Basic', 'item_image' => url('/images/items/Basic_Compass.png')],
 			['category_id' => 45, 'item_name' => 'Binoculars', 'spawn_code' => '#SpawnItem BP_BinocularsTest', 'item_image' => url('/images/items/Binoculars.png')],

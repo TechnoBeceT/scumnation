@@ -18,9 +18,11 @@ class CreateSubscriberPlanContentsTable extends Migration
             $table->unsignedBigInteger('plan_id');
             $table->string('type');
             $table->integer('amount');
-            $table->string('code');
+            $table->unsignedBigInteger('item_id')->nullable();
+            $table->unsignedBigInteger('pack_type_id')->nullable();
             $table->integer('days');
             $table->foreign('plan_id')->references('id')->on('subscriber_plans');
+            $table->foreign('pack_type_id')->references('id')->on('categories');
         });
     }
 
