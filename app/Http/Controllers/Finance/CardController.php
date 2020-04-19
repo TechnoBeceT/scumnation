@@ -26,7 +26,7 @@ class CardController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->stripeController->createCard($request->strip_token->id);
+        return $this->stripeController->createCard($request->stripe_token->id);
     }
 
     /**
