@@ -69,7 +69,7 @@ class PurchaseTokenController extends Controller
                 return $this->errorResponse('Something went wrong.', 400);
             }
 
-            return $this->successResponse(['message' => 'Payment successfully done.', 'tokens' => auth()->user()->credits], 200);
+            return $this->successResponse(['message' => 'Payment successfully done.', 'tokens' => auth()->user()->credit->amount], 200);
         }
         return $this->errorResponse('Payment cannot taken.', 400);
     }
