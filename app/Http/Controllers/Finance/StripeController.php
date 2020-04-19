@@ -32,7 +32,7 @@ class StripeController extends Controller
     public function createCustomer(User $user)
     {
         $customer = \Stripe::customers()->create([
-            'name' => $user->fullname,
+            'name' => $user->steamid,
             'email' => $user->email,
         ]);
         $user->stripe_id = $customer['id'];
