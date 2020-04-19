@@ -2,6 +2,7 @@
 
 namespace App\Traits\Models;
 
+use App\Models\Users\FamePoint;
 use App\Models\Users\Statistic;
 
 trait Statistics
@@ -18,6 +19,16 @@ trait Statistics
     }
 
     /**
+     * Get user's fame points.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function famePoints()
+    {
+        return $this->hasOne(FamePoint::class, 'user_id');
+    }
+
+    /**
      * Handles adding more credits to the user's existing
      * amount of credits.
      *
@@ -31,6 +42,38 @@ trait Statistics
         $statistics->save();
 
         return $statistics;
+    }
+
+    /**
+     * Handles adding more fame points to the user's existing
+     * amount of fame points.
+     *
+     * @param $amount
+     * @return mixed
+     */
+    public function addFame($amount)
+    {
+        $famePoints = FamePoint::where('user_id', '=', $this->id)->first();
+        $famePoints->amount = $famePoints->amount + $amount;
+        $famePoints->save();
+
+        return $famePoints;
+    }
+
+    /**
+     * Handles deducting fame points from the user's existing
+     * amount of fame points.
+     *
+     * @param $amount
+     * @return mixed
+     */
+    public function deductFame($amount)
+    {
+        $famePoints = FamePoint::where('user_id', '=', $this->id)->first();
+        $famePoints->amount = $famePoints->amount - $amount;
+        $famePoints->save();
+
+        return $famePoints;
     }
 
 

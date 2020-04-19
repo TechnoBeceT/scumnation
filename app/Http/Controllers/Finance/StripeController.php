@@ -51,17 +51,16 @@ class StripeController extends Controller
         try {
             $stripeCard = \Stripe::cards()->create($user->stripe_id, $token);
         
-            $card = $user->cards()->create([
+            $user->cards()->create([
                 'card_id'       => $stripeCard['id'],
                 'brand'         => $stripeCard['brand'],
                 'last4'         => $stripeCard['last4'],
-                'exp_month'     => $stripeCard['last4'],
-                'exp_year'      => $stripeCard['last4']
+                'exp_month'     => $stripeCard['exp_month'],
+                'exp_year'      => $stripeCard['exp_year']
             ]);
             return $this->successResponse(['message' => __('messages.cardAdded'), 'cards' => auth()->user()->cards], 200);
         } catch (\Throwable $th) {
-            //return $this->errorResponse(__('messages.cardFailed'), 200);
-            return $th;
+            return $this->errorResponse(__('messages.cardFailed'), 200);
         }
         
     }
@@ -129,6 +128,4 @@ class StripeController extends Controller
 
         return $charge;
     }
-
-    
 }
