@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Finance;
 
 use App\Http\Controllers\Controller;
 use App\Models\Finance\Card;
+use App\Models\Finance\History;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 
@@ -60,17 +61,24 @@ class PurchaseTokenController extends Controller
         }
         $card = Card::where('user_id', auth()->user()->id)->where('id', $request->payment)->first();
         if(!$card) {
-            return $this->errorResponse('Card doesn\'t exist', 400);
+            return $this->errorResponse(__('messages.cardDoesntExists'), 400);
         }
         $charge = $this->stripeController->makeCharge($amount, $card->card_id);
         if($charge['captured'] === true)
         {
-            if(!auth()->user()->addCredits($token)){
-                return $this->errorResponse('Something went wrong.', 400);
+            try {
+                auth()->user()->addCredits($token);
+                History::create([
+                    'user_id'       => auth()->user()->id,
+                    'type'          => History::PURCHASE,
+                    'action_type'   => History::ADD,
+                    'amount'        => $token
+                ]);
+                return $this->successResponse(['message' => __('messages.paymentDone'), 'tokens' => auth()->user()->credit->amount], 200);
+            } catch (\Throwable $th) {
+                return $this->errorResponse(__('messages.paymentFailed'), 400);
             }
-
-            return $this->successResponse(['message' => 'Payment successfully done.', 'tokens' => auth()->user()->credit->amount], 200);
         }
-        return $this->errorResponse('Payment cannot taken.', 400);
+        return $this->errorResponse(__('messages.paymentCannotTaken'), 400);
     }
 }

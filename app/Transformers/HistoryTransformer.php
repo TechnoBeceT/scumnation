@@ -65,6 +65,14 @@ class HistoryTransformer extends TransformerAbstract
                     'description'       => (string)$history->action_type === History::DEDUCT ? __('messages.creditBountySet', ['value' => $history->victim->nickname]) : __('messages.creditBountyEarn', ['value' => $history->victim->nickname]),
                     'createdAt'         => $history->created_at
                 ];
+            case History::PURCHASE:
+                return [
+                    'id'                => (int)$history->id,
+                    'type'              => (string)$history->action_type,
+                    'amount'            => (float)$history->amount,
+                    'description'       => (string)__('messages.creditPurchased', ['value' => $history->amount]),
+                    'createdAt'         => $history->created_at
+                ];
         }
     }
 

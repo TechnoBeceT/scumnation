@@ -24,4 +24,9 @@ return [
     'cantCreatePlan'                => 'Something went wrong while creating plan.',
     'cantUpdatePlan'                => 'Something went wrong while updating plan.',
     'planDeleted'                   => 'Plan deleted successfully.',
+    'creditPurchased'               => 'Purchased :value credits.',
+    'cardDoesntExists'              => 'Card doesn\'t exist',
+    'paymentDone'                   => 'Payment successfully done.',
+    'paymentFailed'                 => 'Something went wrong while doing payment.',
+    'paymentCannotTaken'            => 'Payment cannot taken.',
 ];
