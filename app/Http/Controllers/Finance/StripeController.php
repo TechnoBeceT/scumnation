@@ -61,6 +61,7 @@ class StripeController extends Controller
             return $this->successResponse(['message' => __('messages.cardAdded'), 'cards' => auth()->user()->cards], 200);
         } catch (\Throwable $th) {
             return $this->errorResponse(__('messages.cardFailed'), 200);
+            return $th;
         }
         
     }
