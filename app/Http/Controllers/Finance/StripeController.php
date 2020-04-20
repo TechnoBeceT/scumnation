@@ -57,17 +57,17 @@ class StripeController extends Controller
         try {
             $stripeCard = \Stripe::cards()->create($user->stripe_id, $token);
         } catch (ServerErrorException $e) {
-            return $this->errorResponse($e->getMessage(), $e->getCode());
+            return $this->errorResponse($e->getMessage(), 400);
         }catch (CardErrorException $e) {
-            return $this->errorResponse($e->getMessage(), $e->getCode());
+            return $this->errorResponse($e->getMessage(), 400);
         }catch (NotFoundException $e) {
-            return $this->errorResponse($e->getMessage(), $e->getCode());
+            return $this->errorResponse($e->getMessage(), 400);
         }catch (InvalidRequestException $e) {
-            return $this->errorResponse($e->getMessage(), $e->getCode());
+            return $this->errorResponse($e->getMessage(), 400);
         }catch (UnauthorizedException $e) {
-            return $this->errorResponse($e->getMessage(), $e->getCode());
+            return $this->errorResponse($e->getMessage(), 400);
         }catch (BadRequestException $e) {
-            return $this->errorResponse($e->getMessage(), $e->getCode());
+            return $this->errorResponse($e->getMessage(), 400);
         }
 
         try {
@@ -102,17 +102,17 @@ class StripeController extends Controller
                 'statement_descriptor' => $plan->description,
             ]);
         } catch (ServerErrorException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (CardErrorException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (NotFoundException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (InvalidRequestException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (UnauthorizedException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (BadRequestException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (\Throwable $th) {
             abort(__('messages.cantCreatePlan'), 400);
         }
@@ -130,17 +130,17 @@ class StripeController extends Controller
                 'statement_descriptor' => $plan->description,
             ]);
         } catch (ServerErrorException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (CardErrorException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (NotFoundException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (InvalidRequestException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (UnauthorizedException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (BadRequestException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (\Throwable $th) {
             abort(__('messages.cantUpdatePlan'), 400);
         }
@@ -152,17 +152,17 @@ class StripeController extends Controller
         try {
             \Stripe::plans()->delete($plan);
         } catch (ServerErrorException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (CardErrorException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (NotFoundException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (InvalidRequestException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (UnauthorizedException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (BadRequestException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }
         return $this->successResponse(['message' => __('messages.planDeleted')], 200);
     }
@@ -185,17 +185,17 @@ class StripeController extends Controller
                 'capture'  => true
             ]);
         } catch (ServerErrorException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (CardErrorException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (NotFoundException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (InvalidRequestException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (UnauthorizedException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (BadRequestException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }
 
         return $charge;
@@ -220,17 +220,17 @@ class StripeController extends Controller
                 ]
             ]);
         }catch (ServerErrorException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (CardErrorException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (NotFoundException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (InvalidRequestException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (UnauthorizedException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }catch (BadRequestException $e) {
-            abort($e->getMessage(), $e->getCode());
+            abort($e->getMessage(), 400);
         }
         if(isset($subscription['created']) && isset($subscription['start_date'])) {
             $user->subscription()->create([

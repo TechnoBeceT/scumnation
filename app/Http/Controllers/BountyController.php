@@ -34,7 +34,7 @@ class BountyController extends Controller
                 'action_type'   => History::DEDUCT,
                 'amount'        => $request->bounty
             ]);
-            return $this->successResponse(['message' => __('messages.bountySetSuccessfully', ['value' => $user->nickname])], 200);
+            return $this->successResponse(['message' => __('messages.bountySetSuccessfully', ['value' => $user->nickname]), 'credits' => $loggedInUser->credit->amount], 200);
         } catch (\Throwable $th) {
             return $this->errorResponse(__('messages.bountySetFailed'), 401);
         }

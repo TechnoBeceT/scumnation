@@ -18,9 +18,9 @@ class CreateSubscriptionsTable extends Migration
             $table->unsignedBigInteger('plan_id');
             $table->unsignedBigInteger('user_id');
             $table->string('subscription_id');
-            $table->date('start_date');
-            $table->date('current_period_start');
-            $table->date('current_period_end');
+            $table->dateTimeTz('start_date');
+            $table->dateTimeTz('current_period_start');
+            $table->dateTimeTz('current_period_end');
             $table->boolean('cancelled')->default(False);
             $table->timestamps();
             $table->softDeletes();

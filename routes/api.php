@@ -35,8 +35,8 @@ Route::group([ 'middleware' => 'api'], function ($router) {
     */
 
     Route::group(['prefix' => 'auth'], function ($router) {
-        Route::get('login', 'Auth\SteamLoginController@login')->name('login.steam');
-        Route::get('steam', 'Auth\SteamLoginController@authenticate')->name('auth.steam');
+        Route::get('login', 'Auth\SteamLoginController@login')->name('login');
+        Route::get('steam', 'Auth\SteamLoginController@authenticate')->name('auth');
         Route::get('isLoggedIn', 'Auth\SteamLoginController@isLoggedIn');
         Route::post('logout', 'Auth\SteamLoginController@logout');
         Route::get('postman', 'Auth\SteamLoginController@loginForPostman'); //For Test Purposes
