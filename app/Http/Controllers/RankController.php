@@ -23,6 +23,6 @@ class RankController extends Controller
             $users = User::all();
         }
         $users = $users->sortBy('rank');
-        return $this->showAll($users);
+        return $this->showAll($users, 'globalUserTransformer');
     }
 }
