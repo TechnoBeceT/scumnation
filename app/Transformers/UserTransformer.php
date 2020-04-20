@@ -50,7 +50,8 @@ class UserTransformer extends TransformerAbstract
             'totalKills'        => (integer)$user->statistics->total_kills,
             'killDeathRatio'    => (integer)$user->statistics->kd,
             'bounty'            => (integer)$user->bounty->amount,
-            'rank'              => (int)$user->rank
+            'rank'              => (int)$user->rank,
+            'user_type'         => (string)$user->subscription ? $user->subscription->plan->tier : 'regular',
         ];
     }
 
