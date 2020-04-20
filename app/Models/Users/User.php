@@ -3,6 +3,7 @@
 namespace App\Models\Users;
 
 use App\Traits\Models\Finance;
+use App\Traits\Models\HasInventory;
 use App\Traits\Models\Statistics;
 use App\Traits\Models\UserTrait;
 use App\Transformers\GlobalUserTransformer;
@@ -14,7 +15,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, UserTrait, Finance, Statistics;
+    use Notifiable, UserTrait, Finance, Statistics, HasInventory;
 
     protected $appends = ['rank'];
     public $transformer = UserTransformer::class;

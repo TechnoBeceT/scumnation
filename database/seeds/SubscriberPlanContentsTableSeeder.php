@@ -23,12 +23,12 @@ class SubscriberPlanContentsTableSeeder extends Seeder
             ['plan_id' => 3, 'type' => SubscriberPlanContent::COIN, 'amount' => 1000, 'days' => 7],
             ['plan_id' => 3, 'type' => SubscriberPlanContent::PACK, 'amount' => 3, 'pack_type_id' => 8, 'days' => 7],
             ['plan_id' => 3, 'type' => SubscriberPlanContent::VEHICLE, 'amount' => 2, 'days' => 7],
-            ['plan_id' => 3, 'type' => SubscriberPlanContent::ITEM, 'amount' => 6, 'item_id' => 813, 'days' => 30],
+            ['plan_id' => 3, 'type' => SubscriberPlanContent::ITEM, 'amount' => 2, 'item_id' => 813, 'days' => 7],
             ['plan_id' => 4, 'type' => SubscriberPlanContent::FAMEPOINT, 'amount' => 750, 'days' => 7],
             ['plan_id' => 4, 'type' => SubscriberPlanContent::COIN, 'amount' => 1500, 'days' => 7],
             ['plan_id' => 4, 'type' => SubscriberPlanContent::PACK, 'amount' => 10, 'pack_type_id' => 8, 'days' => 7],
             ['plan_id' => 4, 'type' => SubscriberPlanContent::VEHICLE, 'amount' => 5, 'days' => 7],
-            ['plan_id' => 4, 'type' => SubscriberPlanContent::ITEM, 'amount' => 12, 'item_id' => 813, 'days' => 30],
+            ['plan_id' => 4, 'type' => SubscriberPlanContent::ITEM, 'amount' => 3, 'item_id' => 813, 'days' => 7],
             
         ];
         foreach ($contents as $key => $content) {

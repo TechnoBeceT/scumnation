@@ -11,6 +11,7 @@ class CategoryType extends Model
     use HasSlug;
     
     public $timestamps = false;
+    protected $table = 'category_types';
 
     /**
      * The attributes that are mass assignable.

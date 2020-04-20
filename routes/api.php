@@ -60,10 +60,11 @@ Route::group([ 'middleware' => 'api'], function ($router) {
     Route::group(['middleware' => ['auth:api']], function () {
         Route::resource('kills', 'KillController', ['only' => 'index']);
         Route::resource('history', 'HistoryController', ['only' => 'index']);
-        Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
+        Route::resource('users', 'UserController', ['only' => 'show']);
         Route::resource('users.bounty', 'BountyController', ['only' => ['index', 'store']]);
         Route::resource('user/card', 'Finance\CardController', ['only' => ['store', 'destroy']]);
         Route::resource('user/tokens', 'Finance\PurchaseTokenController', ['only' => 'store']);
         Route::resource('user/subscription', 'Finance\SubscriptionController', ['only' => ['store', 'destroy']]);
+        Route::resource('user/deploy', 'Finance\SubscriptionDeployController', ['only' => 'index']);
     });
 });

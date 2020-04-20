@@ -35,5 +35,7 @@ return [
     'typedZeroOrLess'               => 'You can\'t give a zero or less than zero value.',
     'cancelledSubscribe'            => 'Subscription successfully cancelled.',
     'usersDoesntMatch'              => 'Logged in user and action user different',
-    'youAreNotSubscriber'           => 'You are not a subscribed user.'
+    'youAreNotSubscriber'           => 'You are not a subscribed user.',
+    'youDontOwnThisItem'            => 'You don\'t own this item.',
+    'youDontHaveThisMuch'           => 'You don\'t have this much.'
 ];

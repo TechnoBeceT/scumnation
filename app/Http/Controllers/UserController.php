@@ -11,21 +11,6 @@ class UserController extends Controller
     use ApiResponser;
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        if (request()->has('search')) {
-            $users = User::whereLike(['steam_name', 'nickname', 'steamid'], request()->search)->get();
-        } else {
-            $users = User::all();
-        }
-        return $this->showAll($users, 'globalUserTransformer');
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
