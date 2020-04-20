@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Finance\Subscriptions;
 use App\Models\Users\User;
 use App\Traits\ApiResponser;
+use Carbon\Carbon;
 use Cartalyst\Stripe\Exception\ServerErrorException;
 use Cartalyst\Stripe\Exception\CardErrorException;
 use Cartalyst\Stripe\Exception\NotFoundException;
@@ -211,7 +212,7 @@ class StripeController extends Controller
         $user = $this->getUser();
         try {
             $subscription = \Stripe::subscriptions()->create($user->stripe_id, [
-                'plan'      => $plan,
+                'plan'      => $plan->tier,
                 'coupon'    => $coupon,
                 'source'    => $cardId,
                 'metadata'  => [
@@ -235,14 +236,36 @@ class StripeController extends Controller
         if(isset($subscription['created']) && isset($subscription['start_date'])) {
             $user->subscription()->create([
                 'user_id'               => $user->id,
+                'plan_id'               => $plan->id,
                 'subscription_id'       => $subscription['id'],
-                'start_date'            => $subscription['start_date'],
-                'current_period_start'  => $subscription['current_period_start'],
-                'current_period_end'    => $subscription['current_period_end'],
+                'start_date'            => Carbon::createFromTimestamp($subscription['start_date']),
+                'current_period_start'  => Carbon::createFromTimestamp($subscription['current_period_start']),
+                'current_period_end'    => Carbon::createFromTimestamp($subscription['current_period_end']),
             ]);
             return $this->successResponse(['message' => __('messages.successfullySubscribed')], 200);
         }else {
             return $this->errorResponse(__('messages.subscribeFailed'), 400);
         }
+    }
+
+    public function cancelSubscription($subscription)
+    {
+        $user = $this->getUser();
+        try {
+            $subscription = \Stripe::subscriptions()->cancel($user->stripe_id, $subscription->subscription_id, true);
+        }catch (ServerErrorException $e) {
+            abort($e->getMessage(), 400);
+        }catch (CardErrorException $e) {
+            abort($e->getMessage(), 400);
+        }catch (NotFoundException $e) {
+            abort($e->getMessage(), 400);
+        }catch (InvalidRequestException $e) {
+            abort($e->getMessage(), 400);
+        }catch (UnauthorizedException $e) {
+            abort($e->getMessage(), 400);
+        }catch (BadRequestException $e) {
+            abort($e->getMessage(), 400);
+        }
+        return $this->successResponse(['message' => __('messages.cancelledSubscribe')], 200);
     }
 }

@@ -22,7 +22,7 @@ class UserController extends Controller
         } else {
             $users = User::all();
         }
-        return $this->showAll($users);
+        return $this->showAll($users, 'globalUserTransformer');
     }
 
     /**
@@ -33,7 +33,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $this->showOne($user);
+        return $this->showOne($user, 'globalUserTransformer');
     }
 
     /**

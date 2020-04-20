@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Finance;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubscriptionRequest;
 use App\Models\Finance\Card;
+use App\Models\Finance\SubscriberPlan;
+use App\Models\Users\User;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 
@@ -33,11 +35,14 @@ class SubscriptionController extends Controller
     {
         $user = auth()->user();
         $card = Card::where('user_id', auth()->user()->id)->where('id', $request->payment)->first();
+        $plan = SubscriberPlan::where('tier', $request->plan)->first();
         if($request->has('coupon')) { $coupon = $request->coupon; }else { $coupon = null; }
         if($user->subscription) {
-            return 'have subscribe';
+            $this->stripeController->cancelSubscription($user->subscription);
+            $user->subscription()->delete();
+            return $this->stripeController->makeSubscription($plan, $card->card_id, $coupon);
         }else {
-            return $this->stripeController->makeSubscription($request->plan, $card->card_id, $coupon);
+            return $this->stripeController->makeSubscription($plan, $card->card_id, $coupon);
         }
     }
 
@@ -47,8 +52,23 @@ class SubscriptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        if($user->id != auth()->user()->id) {
+            return $this->errorResponse(__('messages.usersDoesntMatch'), 400);
+        }
+        if(!$user->subscription) {
+            return $this->errorResponse(__('messages.youAreNotSubscriber'), 400);
+        }
+        try {
+            $this->stripeController->cancelSubscription($user->subscription);
+            $user->subscription()->update([
+                'cancelled' => true
+            ]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse(__('messages.cancelledSubscribe'), 400);
+        }
+        
+
     }
 }

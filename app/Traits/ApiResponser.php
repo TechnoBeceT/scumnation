@@ -26,14 +26,20 @@ trait ApiResponser
         return $this->successResponse($data, $code);
     }
 
-    protected function showAll(Collection $collection, $code = 200)
+    protected function showAll(Collection $collection, $transformer = 'default', $code = 200)
     {
         if ($collection->isEmpty()) {
             return $this->successResponse($collection, $code);
         }
-
-        $transformer = $collection->first()->transformer;
-
+        
+        switch ($transformer) {
+            case 'globalUserTransformer':
+                $transformer = $collection->first()->globalUserTransformer;
+                break;
+            default:
+                $transformer = $collection->first()->transformer;
+                break;
+        }
         $collection = $this->filterData($collection, $transformer);
         $collection = $this->sortData($collection, $transformer);
         $collection = $this->paginate($collection);
@@ -42,9 +48,16 @@ trait ApiResponser
         return $this->successResponse($collection, $code);
     }
 
-    protected function showOne(Model $instance, $code = 200)
+    protected function showOne(Model $instance, $transformer = 'default', $code = 200)
     {
-        $transformer = $instance->transformer;
+        switch ($transformer) {
+            case 'globalUserTransformer':
+                $transformer = $instance->globalUserTransformer;
+                break;
+            default:
+                $transformer = $instance->transformer;
+                break;
+        }
         $instance = $this->transformData($instance, $transformer);
         return $this->successResponse($instance, $code);
     }

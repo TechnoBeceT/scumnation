@@ -5,6 +5,7 @@ namespace App\Models\Users;
 use App\Traits\Models\Finance;
 use App\Traits\Models\Statistics;
 use App\Traits\Models\UserTrait;
+use App\Transformers\GlobalUserTransformer;
 use App\Transformers\UserTransformer;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,6 +18,7 @@ class User extends Authenticatable implements JWTSubject
 
     protected $appends = ['rank'];
     public $transformer = UserTransformer::class;
+    public $globalUserTransformer = GlobalUserTransformer::class;
 
     /**
      * The attributes that are mass assignable.

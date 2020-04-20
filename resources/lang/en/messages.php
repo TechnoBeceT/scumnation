@@ -17,7 +17,7 @@ return [
     'killCredit'                    => 'Credit for killing :value',
     'playTimeCredit'                => 'Credit for playing time',
     'creditDeath'                   => 'Credit removed for death. Killer: :value',
-    'creditBountySet'               => 'You did set bounty for :value',
+    'creditBountySet'               => 'You placed a bounty on :value',
     'creditBountyEarn'              => 'You get bounty killing for :value',
     'cardAdded'                     => 'Card Added Succesfully.',
     'cardFailed'                    => 'Something went wrong while adding card.',
@@ -33,4 +33,7 @@ return [
     'successfullySubscribed'        => 'You are successfully subscribed',
     'subscribeFailed'               => 'Subscription failed.',
     'typedZeroOrLess'               => 'You can\'t give a zero or less than zero value.',
+    'cancelledSubscribe'            => 'Subscription successfully cancelled.',
+    'usersDoesntMatch'              => 'Logged in user and action user different',
+    'youAreNotSubscriber'           => 'You are not a subscribed user.'
 ];
