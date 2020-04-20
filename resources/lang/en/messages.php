@@ -31,5 +31,6 @@ return [
     'paymentCannotTaken'            => 'Payment cannot taken.',
     'stripeSomethingWentWrong'      => 'Something went wrong on stripe.',
     'successfullySubscribed'        => 'You are successfully subscribed',
-    'subscribeFailed'               => 'Subscription failed.'
+    'subscribeFailed'               => 'Subscription failed.',
+    'typedZeroOrLess'               => 'You can\'t give a zero or less than zero value.',
 ];

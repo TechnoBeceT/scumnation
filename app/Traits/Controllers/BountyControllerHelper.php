@@ -18,5 +18,9 @@ trait BountyControllerHelper
         if($loggedInUser->credit->amount < $request->bounty) {
             abort(401, __('messages.notEnoughTokens'));
         }
+
+        if($request->bounty <= 0) {
+            abort(401, __('messages.typedZeroOrLess'));
+        }
     }
 }
