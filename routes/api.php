@@ -64,5 +64,6 @@ Route::group([ 'middleware' => 'api'], function ($router) {
         Route::resource('users.bounty', 'UserController', ['only' => ['index', 'store']]);
         Route::resource('user/card', 'Finance\CardController', ['only' => ['store', 'destroy']]);
         Route::resource('user/tokens', 'Finance\PurchaseTokenController', ['only' => 'store']);
+        Route::resource('user/subscription', 'Finance\SubscriptionController', ['only' => ['store', 'destroy']]);
     });
 });

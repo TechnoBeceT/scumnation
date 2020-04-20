@@ -29,4 +29,7 @@ return [
     'paymentDone'                   => 'Payment successfully done.',
     'paymentFailed'                 => 'Something went wrong while doing payment.',
     'paymentCannotTaken'            => 'Payment cannot taken.',
+    'stripeSomethingWentWrong'      => 'Something went wrong on stripe.',
+    'successfullySubscribed'        => 'You are successfully subscribed',
+    'subscribeFailed'               => 'Subscription failed.'
 ];

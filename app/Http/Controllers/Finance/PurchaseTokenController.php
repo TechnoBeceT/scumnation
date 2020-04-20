@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Finance;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TokenPurchaseRequest;
 use App\Models\Finance\Card;
 use App\Models\Finance\History;
 use App\Traits\ApiResponser;
@@ -27,7 +28,7 @@ class PurchaseTokenController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TokenPurchaseRequest $request)
     {
         switch ($request->tokens) {
             case 200:

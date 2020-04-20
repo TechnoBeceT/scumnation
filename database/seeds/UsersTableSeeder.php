@@ -12,13 +12,9 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $technobecet = User::create([
+        User::create([
             'steamid'   => '76561198009780481',
             'nickname'  => 'TechnoBeceT'
-        ]);
-        $shaun = User::create([
-            'steamid' => '76561198123650511',
-            'nickname'  => '[FOX]SilodSnek'
         ]);
     }
 }

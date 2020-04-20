@@ -31,6 +31,11 @@ trait UserTrait
         return $this->hasOne(Subscriptions::class, 'user_id');
     }
 
+    public function fullname()
+    {
+        return $this->name. ' '. $this->surname;
+    }
+
     /**
      * Handles extending the create method in order to create a User Credits record
      *
