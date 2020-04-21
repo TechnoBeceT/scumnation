@@ -38,4 +38,14 @@ class PackContentTrasformer extends TransformerAbstract
             'amount'        => (string)$packContent->amount,
         ];
     }
+
+    public static function originalAttribute($index)
+    {
+        $attributes = [
+            'item_name'     => 'item.item_name',
+            'amount'         => 'amount',
+        ];
+
+        return isset($attributes[$index]) ? $attributes[$index] : null;
+    }
 }

@@ -55,4 +55,14 @@ class SaleTransformer extends TransformerAbstract
                 ];
         }
     }
+
+    public static function originalAttribute($index)
+    {
+        $attributes = [
+            'id'        => 'id',
+            'price'     => 'price',
+        ];
+
+        return isset($attributes[$index]) ? $attributes[$index] : null;
+    }
 }
