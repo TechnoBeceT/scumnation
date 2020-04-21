@@ -32,13 +32,27 @@ class SaleTransformer extends TransformerAbstract
      */
     public function transform(Sale $sale)
     {
-        return [
-            'id'    => $sale->item_id,
-            'name'  => $sale->realItem->item_name,
-            'price' => $sale->price,
-            'image' => $sale->realItem->item_image,
-            'categorytype' => $sale->realItem->category->categoryType->type_name,
-            'categoryname' => $sale->realItem->category->category_name,
-        ];
+        switch ($sale->content_type) {
+            case Sale::ITEM:
+                return [
+                    'id'    => $sale->id,
+                    'name'  => $sale->realItem->item_name,
+                    'price' => $sale->price,
+                    'image' => $sale->realItem->item_image,
+                    'content_type' => $sale->content_type,
+                    'categorytype' => $sale->realItem->category->categoryType->type_name,
+                    'categoryname' => $sale->realItem->category->category_name,
+                ];
+            case Sale::PACK:
+                return [
+                    'id'    => $sale->id,
+                    'name'  => $sale->realPack->pack_name,
+                    'price' => $sale->price,
+                    'content_type' => $sale->content_type,
+                    'categorytype' => $sale->realPack->category->categoryType->type_name,
+                    'categoryname' => $sale->realPack->category->category_name,
+                    'contents'     => fractal($sale->realPack->contents, new PackContentTrasformer)
+                ];
+        }
     }
 }

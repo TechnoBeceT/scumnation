@@ -24,12 +24,12 @@ class MarketPlaceCategory extends Category
     }
 
     /**
-     * Get the this category packs.
+     * Get the this category items.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function packs()
+    public function marketplacepacks()
     {
-        return $this->hasMany(Pack::class, 'category_id');
+        return $this->hasMany(MarketPlacePack::class, 'category_id');
     }
 }

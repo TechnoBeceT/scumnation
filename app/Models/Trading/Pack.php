@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pack extends Model
 {
     public $timestamps = false;
+    protected $table = 'packs';
 
     /**
      * The attributes that are mass assignable.
@@ -14,7 +15,7 @@ class Pack extends Model
      * @var array
      */
     protected $fillable = [
-        'category_id', 'pack_name', 'price'
+        'category_id', 'pack_name'
     ];
 
     /**

@@ -306,6 +306,24 @@ class SalesTableSeeder extends Seeder
 						['item_id' => 70, 'price' => 10.00, 'daily_limit' => 0],  //Broadhead Metal Arrow
 						['item_id' => 72, 'price' => 10.00, 'daily_limit' => 0],  //Metal Arrow
 						['item_id' => 71, 'price' => 10.00, 'daily_limit' => 0],  //Carbon_Arrow
+
+						// Packs 
+						['pack_id' => 1, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  	//M82A1 Lover Pack Black
+						['pack_id' => 2, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  	//M82A1 Lover Pack Desert
+						['pack_id' => 3, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  	//M82A1 Lover Pack Snow
+						['pack_id' => 4, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  	//SVD Lover Pack
+						['pack_id' => 5, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  	//AK47 Lover Pack
+						['pack_id' => 6, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  	//AK47 Lover Pack Engraved
+						['pack_id' => 7, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  	//AKM Lover Pack
+						['pack_id' => 8, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  	//MK18 Lover Pack
+						['pack_id' => 9, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  	//M16A4 Lover Pack
+						['pack_id' => 10, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK], 	//Close Combat Pack
+						['pack_id' => 11, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  //Snow Camouflage Pack
+						['pack_id' => 12, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  //Desert Camouflage Packk
+						['pack_id' => 13, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  //Forest Camouflage Pack
+						['pack_id' => 14, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  //Black Camouflage Pack
+						['pack_id' => 15, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  //Medical Package
+						['pack_id' => 16, 'price' => 0, 'daily_limit' => 0, 'content_type' => Sale::PACK],  //Crafting Package
         ];
 
 		foreach ($sales as $key => $sale) {

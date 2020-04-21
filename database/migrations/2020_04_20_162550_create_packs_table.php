@@ -17,7 +17,6 @@ class CreatePacksTable extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->string('pack_name');
-            $table->decimal('price',9,2);
             $table->foreign('category_id')->references('id')->on('categories');
         });
     }

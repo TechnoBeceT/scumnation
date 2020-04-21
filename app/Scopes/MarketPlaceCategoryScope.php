@@ -10,6 +10,6 @@ class MarketPlaceCategoryScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
-        $builder->has('marketplaceitems')->whereHas('marketplaceitems')->orHas('packs')->orWhereHas('packs');
+        $builder->has('marketplaceitems')->whereHas('marketplaceitems')->orHas('marketplacepacks')->orWhereHas('marketplacepacks');
     }
 }
