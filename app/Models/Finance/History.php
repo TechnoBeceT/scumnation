@@ -26,7 +26,7 @@ class History extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'type', 'killer_id', 'victim_id', 'amount', 'action_type'
+        'user_id', 'type', 'killer_id', 'victim_id', 'amount', 'action_type', 'sale_id'
     ];
 
     public $hidden = ['id', 'user_id'];

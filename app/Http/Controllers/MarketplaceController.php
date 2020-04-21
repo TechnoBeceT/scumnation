@@ -33,7 +33,7 @@ class MarketplaceController extends Controller
     public function store(MarketplacePurchaseRequest $request)
     {
         $user = auth()->user();
-        $this->validatePurchaseRequest($request, $user);
+        $data = $this->validatePurchaseRequest($request, $user);
         try {
             foreach($request->data as $purchased) {
                 $sale = Sale::find($purchased['id']);
@@ -67,6 +67,6 @@ class MarketplaceController extends Controller
         } catch (\Throwable $th) {
             return $this->errorResponse(__('messages.purchaseFailed'), 400);
         }
-        return $this->successResponse(['messages' => __('messages.successfullyPurchased')], 200);
+        return $this->successResponse(['messages' => __('messages.successfullyPurchased'), 'credits' => $data['totalPrice']], 200);
     }
 }

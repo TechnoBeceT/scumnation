@@ -22,5 +22,7 @@ trait MarketplaceControllerHelper
         if($totalPrice > $user->credit->amount) {
             abort(400, __('messages.notEnoughTokens'));
         }
+
+        return ['totalPrice' => ($user->credit->amount - $totalPrice)];
     }
 }

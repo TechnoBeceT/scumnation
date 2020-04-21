@@ -18,7 +18,7 @@ class Sale extends Model
      * @var array
      */
     protected $fillable = [
-        'item_id', 'price', 'daily_limit'
+        'item_id', 'price', 'daily_limit', 'content_type'
     ];
 
     /**

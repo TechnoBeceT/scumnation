@@ -3,11 +3,13 @@
 namespace App\Models\Trading;
 
 use App\Models\Users\User;
+use App\Transformers\InventoryTransformer;
 use Illuminate\Database\Eloquent\Model;
 
 class Inventory extends Model
 {
     public $timestamps = false;
+    public $transformer = InventoryTransformer::class;
 
     /**
      * The attributes that are mass assignable.
