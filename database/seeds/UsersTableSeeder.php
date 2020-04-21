@@ -16,5 +16,9 @@ class UsersTableSeeder extends Seeder
             'steamid'   => '76561198009780481',
             'nickname'  => 'TechnoBeceT'
         ]);
+        User::create([
+            'steamid'   => '76561198123650511',
+            'nickname'  => '[FOX]SilodSnek'
+        ]);
     }
 }
