@@ -17,6 +17,7 @@ class CreatePacksTable extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->string('pack_name');
+            $table->string('pack_image');
             $table->foreign('category_id')->references('id')->on('categories');
         });
     }

@@ -39,4 +39,14 @@ class InventoryTransformer extends TransformerAbstract
             'quantity'      => $inventory->amount
         ];
     }
+
+    public static function originalAttribute($index)
+    {
+        $attributes = [
+            'item_id'     => 'item_id',
+            'amount'         => 'amount',
+        ];
+
+        return isset($attributes[$index]) ? $attributes[$index] : null;
+    }
 }
