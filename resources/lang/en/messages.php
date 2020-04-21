@@ -41,4 +41,7 @@ return [
     'successfullyPurchased'         => 'Successfully purchased.',
     'purchaseFailed'                => 'Purchase failed.',
     'purchasedSale'                 => 'You have purchased :value',
+    'subItemSuccessfull'            => 'Subscription package successfully added to your inventory',
+    'subItemFailed'                 => 'Something went wrong while giving your package',
+    'alreadyDone'                   => 'You are already get your subscription items for this week.'
 ];
