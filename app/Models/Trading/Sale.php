@@ -2,11 +2,13 @@
 
 namespace App\Models\Trading;
 
+use App\Transformers\SaleTransformer;
 use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
 {
     public $timestamps = false;
+    public $transformer = SaleTransformer::class;
 
     /**
      * The attributes that are mass assignable.

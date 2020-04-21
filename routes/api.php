@@ -66,5 +66,6 @@ Route::group([ 'middleware' => 'api'], function ($router) {
         Route::resource('user/tokens', 'Finance\PurchaseTokenController', ['only' => 'store']);
         Route::resource('user/subscription', 'Finance\SubscriptionController', ['only' => ['store', 'destroy']]);
         Route::resource('user/deploy', 'Finance\SubscriptionDeployController', ['only' => 'index']);
+        Route::resource('marketplace', 'TestController', ['only' => 'index']);
     });
 });

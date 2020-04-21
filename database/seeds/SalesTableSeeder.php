@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Trading\Item;
 use App\Models\Trading\Sale;
 use Illuminate\Database\Seeder;
 
@@ -307,8 +308,16 @@ class SalesTableSeeder extends Seeder
 						['item_id' => 71, 'price' => 10.00, 'daily_limit' => 0], //Carbon_Arrow
         ];
 
-			foreach ($sales as $key => $sale) {
-				Sale::create($sale);
+			// foreach ($sales as $key => $sale) {
+			// 	Sale::create($sale);
+			// }
+			$items = Item::all();
+			foreach ($items as $item){
+				Sale::create([
+					'item_id' => $item->id,
+					'price'   => 10.00,
+					'daily_limit'	=> 0
+				]);
 			}
     }
 }
