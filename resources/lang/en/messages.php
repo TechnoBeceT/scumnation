@@ -37,5 +37,8 @@ return [
     'usersDoesntMatch'              => 'Logged in user and action user different',
     'youAreNotSubscriber'           => 'You are not a subscribed user.',
     'youDontOwnThisItem'            => 'You don\'t own this item.',
-    'youDontHaveThisMuch'           => 'You don\'t have this much.'
+    'youDontHaveThisMuch'           => 'You don\'t have this much.',
+    'successfullyPurchased'         => 'Successfully purchased.',
+    'purchaseFailed'                => 'Purchase failed.',
+    'purchasedSale'                 => 'You are purchased :value',
 ];

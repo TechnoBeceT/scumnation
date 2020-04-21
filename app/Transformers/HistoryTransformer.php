@@ -3,6 +3,7 @@
 namespace App\Transformers;
 
 use App\Models\Finance\History;
+use App\Models\Trading\Sale;
 use League\Fractal\TransformerAbstract;
 
 class HistoryTransformer extends TransformerAbstract
@@ -71,6 +72,14 @@ class HistoryTransformer extends TransformerAbstract
                     'type'              => (string)$history->action_type,
                     'amount'            => (float)$history->amount,
                     'description'       => (string)__('messages.creditPurchased', ['value' => $history->amount]),
+                    'createdAt'         => $history->created_at
+                ];
+            case History::SALE:
+                return [
+                    'id'                => (int)$history->id,
+                    'type'              => (string)$history->action_type,
+                    'amount'            => (float)$history->amount,
+                    'description'       => (string)$history->sale->content_type == Sale::ITEM ?  __('messages.purchasedSale', ['value' => $history->sale->realItem->item_name]) : __('messages.purchasedSale', ['value' => $history->sale->realPack->pack_name]),
                     'createdAt'         => $history->created_at
                 ];
         }

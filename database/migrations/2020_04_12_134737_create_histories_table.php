@@ -18,6 +18,7 @@ class CreateHistoriesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('killer_id')->nullable();
             $table->unsignedBigInteger('victim_id')->nullable();
+            $table->unsignedBigInteger('sale_id')->nullable();
             $table->string('type');
             $table->string('action_type');
             $table->decimal('amount',9,2);

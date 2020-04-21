@@ -2,6 +2,7 @@
 
 namespace App\Models\Finance;
 
+use App\Models\Trading\Sale;
 use App\Models\Users\User;
 use App\Transformers\HistoryTransformer;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ class History extends Model
     const KILL      = 'Kill';
     const DEATH     = 'Death';
     const PURCHASE  = 'Purchase';
-    const ORDER     = 'Order';
+    const SALE      = 'Sale';
     const BOUNTY    = 'Bounty';
     const PLAYTIME  = 'Playtime';
     const DEDUCT    = 'Deduct';
@@ -58,5 +59,15 @@ class History extends Model
     public function victim()
     {
         return $this->belongsTo(User::class, 'victim_id');
+    }
+
+    /**
+     * Get the sale informations.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sale()
+    {
+        return $this->belongsTo(Sale::class, 'sale_id');
     }
 }
