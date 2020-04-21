@@ -205,17 +205,17 @@ class SalesTableSeeder extends Seeder
 
 					// cars
 
-						['item_id' => 846, 'price' => 750.00, 'daily_limit' => 1], //Pickup Black
-						['item_id' => 847, 'price' => 750.00, 'daily_limit' => 1], //Pickup Blue
-						['item_id' => 850, 'price' => 750.00, 'daily_limit' => 1], //Pickup Forest Camo
-						['item_id' => 845, 'price' => 750.00, 'daily_limit' => 1], //Pickup Orange
-						['item_id' => 848, 'price' => 750.00, 'daily_limit' => 1], //Pickup Red
-						['item_id' => 851, 'price' => 750.00, 'daily_limit' => 1], //Pickup Red/White
-						['item_id' => 849, 'price' => 750.00, 'daily_limit' => 1], //Pickup White
-						['item_id' => 853, 'price' => 500.00, 'daily_limit' => 1], //Quad Blue
-						['item_id' => 855, 'price' => 500.00, 'daily_limit' => 1], //Quad Forest Camo
-						['item_id' => 854, 'price' => 500.00, 'daily_limit' => 1], //Quad Red
-						['item_id' => 852, 'price' => 500.00, 'daily_limit' => 1], //Quad Yellow
+						['item_id' => 846, 'price' => 750.00, 'daily_limit' => 1],  //Pickup Black
+						['item_id' => 847, 'price' => 750.00, 'daily_limit' => 1],  //Pickup Blue
+						['item_id' => 850, 'price' => 750.00, 'daily_limit' => 1],  //Pickup Forest Camo
+						['item_id' => 845, 'price' => 750.00, 'daily_limit' => 1],  //Pickup Orange
+						['item_id' => 848, 'price' => 750.00, 'daily_limit' => 1],  //Pickup Red
+						['item_id' => 851, 'price' => 750.00, 'daily_limit' => 1],  //Pickup Red/White
+						['item_id' => 849, 'price' => 750.00, 'daily_limit' => 1],  //Pickup White
+						['item_id' => 853, 'price' => 500.00, 'daily_limit' => 1],  //Quad Blue
+						['item_id' => 855, 'price' => 500.00, 'daily_limit' => 1],  //Quad Forest Camo
+						['item_id' => 854, 'price' => 500.00, 'daily_limit' => 1],  //Quad Red
+						['item_id' => 852, 'price' => 500.00, 'daily_limit' => 1],  //Quad Yellow
 						['item_id' => 844, 'price' => 1000.00, 'daily_limit' => 1], //SUV Black
 						['item_id' => 840, 'price' => 1000.00, 'daily_limit' => 1], //SUV Blue
 						['item_id' => 841, 'price' => 1000.00, 'daily_limit' => 1], //SUV Orange
@@ -225,20 +225,20 @@ class SalesTableSeeder extends Seeder
 					// Weapon Ting
 
 					// ammo
-						['item_id' => 889, 'price' => 50.00, 'daily_limit' => 0], // 7.62x39mm Ammunition Box
-						['item_id' => 893, 'price' => 50.00, 'daily_limit' => 0], // 5.45x39mm Ammunition Box
-						['item_id' => 900, 'price' => 50.00, 'daily_limit' => 0], // 5.56x45mm Ammunition Box
-						['item_id' => 877, 'price' => 50.00, 'daily_limit' => 0], // 7.92x57mm Ammunition Box
-						['item_id' => 880, 'price' => 50.00, 'daily_limit' => 0], // 7.62x54mmR Ammunition Box
+						['item_id' => 889, 'price' => 50.00, 'daily_limit' => 0],  // 7.62x39mm Ammunition Box
+						['item_id' => 893, 'price' => 50.00, 'daily_limit' => 0],  // 5.45x39mm Ammunition Box
+						['item_id' => 900, 'price' => 50.00, 'daily_limit' => 0],  // 5.56x45mm Ammunition Box
+						['item_id' => 877, 'price' => 50.00, 'daily_limit' => 0],  // 7.92x57mm Ammunition Box
+						['item_id' => 880, 'price' => 50.00, 'daily_limit' => 0],  // 7.62x54mmR Ammunition Box
 						['item_id' => 885, 'price' => 150.00, 'daily_limit' => 0], // .50 BMG Ammunition Box
-						['item_id' => 871, 'price' => 45.00, 'daily_limit' => 0], // Shotgun Ammunition Box
-						['item_id' => 868, 'price' => 45.00, 'daily_limit' => 0], // 9mm Ammunition Box
-						['item_id' => 896, 'price' => 50.00, 'daily_limit' => 0], // 9x39mm Ammunition Box
-						['item_id' => 859, 'price' => 30.00, 'daily_limit' => 0], // .45 ACP Ammunition Box
-						['item_id' => 862, 'price' => 30.00, 'daily_limit' => 0], // .357 Ammunition Box
-						['item_id' => 865, 'price' => 30.00, 'daily_limit' => 0], // .50 AE Ammunition Box
-						['item_id' => 874, 'price' => 45.00, 'daily_limit' => 0], // .22 Cal Ammunition Box
-						['item_id' => 883, 'price' => 50.00, 'daily_limit' => 0], // Cal .30-06 Ammunition Box
+						['item_id' => 871, 'price' => 45.00, 'daily_limit' => 0],  // Shotgun Ammunition Box
+						['item_id' => 868, 'price' => 45.00, 'daily_limit' => 0],  // 9mm Ammunition Box
+						['item_id' => 896, 'price' => 50.00, 'daily_limit' => 0],  // 9x39mm Ammunition Box
+						['item_id' => 859, 'price' => 30.00, 'daily_limit' => 0],  // .45 ACP Ammunition Box
+						['item_id' => 862, 'price' => 30.00, 'daily_limit' => 0],  // .357 Ammunition Box
+						['item_id' => 865, 'price' => 30.00, 'daily_limit' => 0],  // .50 AE Ammunition Box
+						['item_id' => 874, 'price' => 45.00, 'daily_limit' => 0],  // .22 Cal Ammunition Box
+						['item_id' => 883, 'price' => 50.00, 'daily_limit' => 0],  // Cal .30-06 Ammunition Box
 
 					// Scopes 
 						['item_id' => 150, 'price' => 10.00, 'daily_limit' => 0], //	ACOG
@@ -294,30 +294,22 @@ class SalesTableSeeder extends Seeder
 						['item_id' => 136, 'price' => 15.00, 'daily_limit' => 0], //	MP5 Rail
 						['item_id' => 132, 'price' => 15.00, 'daily_limit' => 0], //	MP5 Suppressor
 
-						['item_id' => 64, 'price' => 10.00, 'daily_limit' => 0], //Compound Bow Sight 3 Pin
-						['item_id' => 65, 'price' => 10.00, 'daily_limit' => 0], //Compound Bow Sight 5 Pin
-						['item_id' => 67, 'price' => 10.00, 'daily_limit' => 0], //Improvised Bow Stabiliser
-						['item_id' => 66, 'price' => 10.00, 'daily_limit' => 0], //Slip-On Bow Silencer
-						['item_id' => 73, 'price' => 10.00, 'daily_limit' => 0], //Wooden Arrow
-						['item_id' => 74, 'price' => 10.00, 'daily_limit' => 0], //Wooden Arrow Feathers
-						['item_id' => 75, 'price' => 10.00, 'daily_limit' => 0], //Wooden Arrow Metal Tip
-						['item_id' => 76, 'price' => 10.00, 'daily_limit' => 0], //Wooden Arrow Stone Tip
-						['item_id' => 69, 'price' => 10.00, 'daily_limit' => 0], //Broadhead Carbon Arrow
-						['item_id' => 70, 'price' => 10.00, 'daily_limit' => 0], //Broadhead Metal Arrow
-						['item_id' => 72, 'price' => 10.00, 'daily_limit' => 0], //Metal Arrow
-						['item_id' => 71, 'price' => 10.00, 'daily_limit' => 0], //Carbon_Arrow
+						['item_id' => 64, 'price' => 10.00, 'daily_limit' => 0],  //Compound Bow Sight 3 Pin
+						['item_id' => 65, 'price' => 10.00, 'daily_limit' => 0],  //Compound Bow Sight 5 Pin
+						['item_id' => 67, 'price' => 10.00, 'daily_limit' => 0],  //Improvised Bow Stabiliser
+						['item_id' => 66, 'price' => 10.00, 'daily_limit' => 0],  //Slip-On Bow Silencer
+						['item_id' => 73, 'price' => 10.00, 'daily_limit' => 0],  //Wooden Arrow
+						['item_id' => 74, 'price' => 10.00, 'daily_limit' => 0],  //Wooden Arrow Feathers
+						['item_id' => 75, 'price' => 10.00, 'daily_limit' => 0],  //Wooden Arrow Metal Tip
+						['item_id' => 76, 'price' => 10.00, 'daily_limit' => 0],  //Wooden Arrow Stone Tip
+						['item_id' => 69, 'price' => 10.00, 'daily_limit' => 0],  //Broadhead Carbon Arrow
+						['item_id' => 70, 'price' => 10.00, 'daily_limit' => 0],  //Broadhead Metal Arrow
+						['item_id' => 72, 'price' => 10.00, 'daily_limit' => 0],  //Metal Arrow
+						['item_id' => 71, 'price' => 10.00, 'daily_limit' => 0],  //Carbon_Arrow
         ];
 
-			// foreach ($sales as $key => $sale) {
-			// 	Sale::create($sale);
-			// }
-			$items = Item::all();
-			foreach ($items as $item){
-				Sale::create([
-					'item_id' => $item->id,
-					'price'   => 10.00,
-					'daily_limit'	=> 0
-				]);
-			}
+		foreach ($sales as $key => $sale) {
+			Sale::create($sale);
+		}
     }
 }
