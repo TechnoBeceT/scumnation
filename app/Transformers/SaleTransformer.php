@@ -48,6 +48,7 @@ class SaleTransformer extends TransformerAbstract
                     'id'    => $sale->id,
                     'name'  => $sale->realPack->pack_name,
                     'price' => $sale->price,
+                    'image' => $sale->realPack->pack_image,
                     'content_type' => $sale->content_type,
                     'categorytype' => $sale->realPack->category->categoryType->type_name,
                     'categoryname' => $sale->realPack->category->category_name,
