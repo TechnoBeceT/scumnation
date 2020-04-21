@@ -36,7 +36,7 @@ class InventoryTransformer extends TransformerAbstract
             'item_id'       => $inventory->item_id,
             'item_name'     => $inventory->item->item_name,
             'item_image'    => $inventory->item->item_image,
-            'amount'        => $inventory->amount
+            'quantity'      => $inventory->amount
         ];
     }
 }

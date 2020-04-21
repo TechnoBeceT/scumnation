@@ -65,7 +65,8 @@ class MarketplaceController extends Controller
                 }
             }
         } catch (\Throwable $th) {
-            return $this->errorResponse(__('messages.purchaseFailed'), 400);
+            // return $this->errorResponse(__('messages.purchaseFailed'), 400);
+            return $th;
         }
         return $this->successResponse(['messages' => __('messages.successfullyPurchased'), 'credits' => $data['totalPrice']], 200);
     }
