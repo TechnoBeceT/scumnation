@@ -10,7 +10,7 @@ trait ApiResponser
 {
     private function successResponse($data, $code)
     {
-        if(is_null($data) || $data->isEmpty()) {
+        if(count($data) <= 0) {
             return response()->json($data, $code);
         }
         return response()->json(array_merge($data, ['code' => $code]), $code);
