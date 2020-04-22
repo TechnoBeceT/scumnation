@@ -5,7 +5,7 @@
 return [
     'invalidCredentials'            => 'Incorrect Username or Password',
     'notCreateToken'                => 'Could not create token.',
-    'userNotFound'                  => 'User not found, Please join the scum server *** SCUM NATION ***',
+    'userNotFound'                  => 'Please join the <span>SCUM NATION</span> server before logging in',
     'tokenExpired'                  => 'Token is expired.',
     'tokenInvalid'                  => 'Token is invalid.',
     'tokenAbsent'                   => 'Token is absent.',
