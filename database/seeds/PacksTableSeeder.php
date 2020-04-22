@@ -17,7 +17,7 @@ class PacksTableSeeder extends Seeder
 			['category_id' => 53, 'pack_name' => 'M82A1 Lover Pack Desert', 'pack_image' => url('/images/packs/M82A1_Lover_Pack_Desert.png')],
 			['category_id' => 53, 'pack_name' => 'M82A1 Lover Pack Snow', 'pack_image' => url('/images/packs/M82A1_Lover_Pack_Desert.png')],
 			['category_id' => 53, 'pack_name' => 'SVD Lover Pack', 'pack_image' => url('/images/packs/SVD_Lover_Pack.png')],
-			['category_id' => 53, 'pack_name' => 'AK47 Lover Pack', 'pack_image' => url('/images/packs/AK47_Lover_Pack.png.png')],
+			['category_id' => 53, 'pack_name' => 'AK47 Lover Pack', 'pack_image' => url('/images/packs/AK47_Lover_Pack.png')],
             ['category_id' => 53, 'pack_name' => 'AK47 Lover Pack Engraved', 'pack_image' => url('/images/packs/AK47_Engraved_Lover_Pack.png')],
             ['category_id' => 53, 'pack_name' => 'AKM Lover Pack', 'pack_image' => url('/images/packs/AKM_Lover_Pack.png')],
 			['category_id' => 53, 'pack_name' => 'MK18 Lover Pack', 'pack_image' => url('/images/packs/MK18_Lover_Pack.png')],
