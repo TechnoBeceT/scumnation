@@ -20,7 +20,7 @@ class Kill extends Model
      * @var array
      */
     protected $fillable = [
-        'killer_id', 'killerX', 'killerY', 'killerZ', 'victim_id', 'victimX', 'victimY', 'victimZ', 'date', 'type',
+        'killer_id', 'killerX', 'killerY', 'killerZ', 'victim_id', 'victimX', 'victimY', 'victimZ', 'date', 'type', 'distance', 'sector'
     ];
 
     /**

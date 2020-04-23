@@ -49,6 +49,16 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
+     * Get the route discord notification key for the model.
+     *
+     * @var array
+     */
+    public function routeNotificationForDiscord()
+    {
+        return '702559672833409037';
+    }
+
+    /**
      * Get the route key for the model.
      *
      * @return string

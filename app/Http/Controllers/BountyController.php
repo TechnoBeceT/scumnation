@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlaceBountyRequest;
-use App\Models\Finance\BountyHistory;
 use App\Models\Finance\History;
 use App\Models\Users\User;
 use App\Traits\Controllers\BountyControllerHelper;
-use Illuminate\Http\Request;
 
 class BountyController extends Controller
 {

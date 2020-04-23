@@ -49,10 +49,10 @@ trait HasInventory
     {
         $item = Inventory::where('user_id', '=', $this->id)->where('item_id', $id)->first();
         if(!$item) {
-            abort(__('messages.youDontOwnThisItem'), 400);
+            abort(400, __('messages.youDontOwnThisItem'));
         }
         if($item->amount < $amount) {
-            abort(__('messages.youDontHaveThisMuch'), 400);
+            abort(400, __('messages.youDontHaveThisMuch'));
         }
         if($item->amount == $amount) {
             $item->delete();

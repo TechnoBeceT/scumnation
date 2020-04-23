@@ -34,4 +34,7 @@ return [
         'secret' => 'sk_test_9yYXwsiCrjv8xos9Ni5mrogx00zHgSYRMo',
     ],
 
+    'discord' => [
+        'token' => 'NzAyNTU4MDk4NjM5ODE0NjU4.XqHKmw.CBFUjXFi68HLB9kQYW9i2JfnWyw',
+    ],
 ];

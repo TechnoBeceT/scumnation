@@ -14,6 +14,7 @@
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "kanalumaddela/laravel-steam-login": "^2.5",
+        "laravel-notification-channels/discord": "^1.1",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "spatie/laravel-fractal": "^5.7",

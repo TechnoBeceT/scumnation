@@ -49,6 +49,8 @@ class KillTransformer extends TransformerAbstract
             'victimstName'  => (string)$kill->victim->steam_name,
             'victimX'       => (string)$kill->victimX,
             'victimY'       => (string)$kill->victimY,
+            'sector'        => (string)$kill->sector,
+            'distance'      => (string)$kill->distance,
             'type'          => (string)$kill->type,
             'date'          => (string)$kill->date
         ];

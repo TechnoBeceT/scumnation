@@ -23,6 +23,8 @@ class CreateKillsTable extends Migration
             $table->string('victimX');
             $table->string('victimY');
             $table->string('victimZ');
+            $table->string('sector');
+            $table->decimal('distance',9,2);
             $table->string('type');
             $table->timestamp('date');
             $table->foreign('killer_id')->references('id')->on('users');

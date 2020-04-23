@@ -43,5 +43,8 @@ return [
     'purchasedSale'                 => 'You have purchased :value',
     'subItemSuccessfull'            => 'Subscription package successfully added to your inventory',
     'subItemFailed'                 => 'Something went wrong while giving your package',
-    'alreadyDone'                   => 'You are already get your subscription items for this week.'
+    'alreadyDone'                   => 'You are already get your subscription items for this week.',
+    'notEnoughItem'                 => 'You don\'t have enough amount this item',
+    'deploymentFailed'              => 'something went wrong while deploying',
+    'deploymentSuccess'             => 'Your items on the way',
 ];

@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DistanceCalculator;
 use App\Helpers\EloCalculator;
+use App\Helpers\SectorCalculator;
 use App\Models\Finance\History;
 use App\Models\Logs\Admin;
 use App\Models\Logs\Kill;
 use App\Models\Logs\Login;
 use App\Models\Users\Statistic;
 use App\Models\Users\User;
+use App\Notifications\DeathNotification;
+use App\Notifications\LoginNotification;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 
@@ -67,6 +71,7 @@ class LogController extends Controller
                         $newUserAvatar->profile_url = $player->profileurl;
                         $newUserAvatar->save();
                     }
+                    $user->notify(new LoginNotification($user));
                     //Create New Login Log
                     Login::create([
                         'user_id'   => $user->id,
@@ -107,6 +112,7 @@ class LogController extends Controller
                     $checkUser->statistics()->update([
                         'last_login' => $fullDate,
                     ]);
+                    $checkUser->notify(new LoginNotification($checkUser));
                     //Create New Login Log
                     Login::create([
                         'user_id' => $checkUser->id,
@@ -226,6 +232,8 @@ class LogController extends Controller
             }
 
             try {
+                $calculateSector = new SectorCalculator($killerX, $killerY);
+                $calculateDistance = new DistanceCalculator($killerX, $killerY, $victimX, $victimY);
                 Kill::create([
                     'killer_id' => $killer->id,
                     'killerX'   => $killerX,
@@ -235,10 +243,12 @@ class LogController extends Controller
                     'victimX'   => $victimX,
                     'victimY'   => $victimY,
                     'victimZ'   => $victimZ,
+                    'sector'    => $calculateSector->getSector(),
+                    'distance'  => $calculateDistance->getDistance(),
                     'type'      => Kill::NOT_EVENT,
                     'date'      => $fullDate
                 ]);
-
+                $victim->notify(new DeathNotification($victim, $killer, $calculateSector->getSector(), $calculateDistance->getDistance()));
                 if ($victim->credit->amount >= 10) {
                     //Give coins to killer
                     $killer->addCredits(10);
@@ -325,6 +335,7 @@ class LogController extends Controller
                 }
                 return $this->successResponse(['status' => 'Success', 'response' => 'Kill Log Added'], 200);
             } catch (\Throwable $th) {
+                return $th;
                 return $this->errorResponse(['status' => 'Failed', 'response' => 'Something went wrong'], 500);
             }
         } elseif (count($loginRows) >= 11 && $loginRows[1] !== 'Game' && $loginRows[2] !== 'version:' && count($checkEventResult) === 1 && count($checkedLocation) === 1) {
@@ -363,6 +374,8 @@ class LogController extends Controller
             }
 
             try {
+                $calculateSector = new SectorCalculator($killerX, $killerY);
+                $calculateDistance = new DistanceCalculator($killerX, $killerY, $victimX, $victimY);
                 Kill::create([
                     'killer_id' => $killer->id,
                     'killerX'   => $killerX,
@@ -372,6 +385,10 @@ class LogController extends Controller
                     'victimX'   => $victimX,
                     'victimY'   => $victimY,
                     'victimZ'   => $victimZ,
+                    'sector'    => $calculateSector->getSector(),
+                    'distance'  => $calculateDistance->getDistance(),
+                    'sector'    => new SectorCalculator($killerX, $killerY),
+                    'distance'  => new DistanceCalculator($killerX, $killerY, $victimX, $victimY),
                     'type'      => Kill::IS_EVENT,
                     'date'      => $fullDate
                 ]);
