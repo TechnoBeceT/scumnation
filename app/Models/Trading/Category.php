@@ -10,7 +10,11 @@ class Category extends Model
 {
     use HasSlug;
 
+    const ITEM     = 'Item';
+    const PACK     = 'Pack';
+    
     public $timestamps = false;
+    protected $table = 'categories';
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +22,7 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'category_type', 'category_name', 'slug'
+        'category_type', 'category_name', 'slug', 'content'
     ];
     
     /**

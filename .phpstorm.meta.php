@@ -5,7 +5,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2020-04-11 23:03:29.
+    * Generated on 2020-04-18 16:25:51.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -155,6 +155,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'session' => \Illuminate\Session\SessionManager::class,
         'session.store' => \Illuminate\Session\Store::class,
+        'stripe' => \Cartalyst\Stripe\Stripe::class,
+        'stripe.config' => \Cartalyst\Stripe\Config::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
         'tymon.jwt' => \Tymon\JWTAuth\JWT::class,
@@ -322,6 +324,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'session' => \Illuminate\Session\SessionManager::class,
         'session.store' => \Illuminate\Session\Store::class,
+        'stripe' => \Cartalyst\Stripe\Stripe::class,
+        'stripe.config' => \Cartalyst\Stripe\Config::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
         'tymon.jwt' => \Tymon\JWTAuth\JWT::class,
@@ -489,6 +493,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'session' => \Illuminate\Session\SessionManager::class,
         'session.store' => \Illuminate\Session\Store::class,
+        'stripe' => \Cartalyst\Stripe\Stripe::class,
+        'stripe.config' => \Cartalyst\Stripe\Config::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
         'tymon.jwt' => \Tymon\JWTAuth\JWT::class,
@@ -656,6 +662,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'session' => \Illuminate\Session\SessionManager::class,
         'session.store' => \Illuminate\Session\Store::class,
+        'stripe' => \Cartalyst\Stripe\Stripe::class,
+        'stripe.config' => \Cartalyst\Stripe\Config::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
         'tymon.jwt' => \Tymon\JWTAuth\JWT::class,
@@ -823,6 +831,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'session' => \Illuminate\Session\SessionManager::class,
         'session.store' => \Illuminate\Session\Store::class,
+        'stripe' => \Cartalyst\Stripe\Stripe::class,
+        'stripe.config' => \Cartalyst\Stripe\Config::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
         'tymon.jwt' => \Tymon\JWTAuth\JWT::class,
@@ -990,6 +1000,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'session' => \Illuminate\Session\SessionManager::class,
         'session.store' => \Illuminate\Session\Store::class,
+        'stripe' => \Cartalyst\Stripe\Stripe::class,
+        'stripe.config' => \Cartalyst\Stripe\Config::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
         'tymon.jwt' => \Tymon\JWTAuth\JWT::class,
@@ -1157,6 +1169,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'session' => \Illuminate\Session\SessionManager::class,
         'session.store' => \Illuminate\Session\Store::class,
+        'stripe' => \Cartalyst\Stripe\Stripe::class,
+        'stripe.config' => \Cartalyst\Stripe\Config::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
         'tymon.jwt' => \Tymon\JWTAuth\JWT::class,
@@ -1324,6 +1338,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'session' => \Illuminate\Session\SessionManager::class,
         'session.store' => \Illuminate\Session\Store::class,
+        'stripe' => \Cartalyst\Stripe\Stripe::class,
+        'stripe.config' => \Cartalyst\Stripe\Config::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
         'tymon.jwt' => \Tymon\JWTAuth\JWT::class,

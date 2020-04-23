@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Scum Nation || E-Store</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -12,8 +12,6 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -28,6 +26,7 @@
                 align-items: center;
                 display: flex;
                 justify-content: center;
+								margin-bottom: 200px;
             }
 
             .position-ref {
@@ -64,17 +63,44 @@
         </style>
     </head>
     <body>
+    <style>
+			body{
+    		background-color: #1E242B;
+			}
+
+			p {
+				font-size: 18px;
+				color: white;
+			}
+
+			img {
+				height: 250px;
+			}
+
+			#title{
+				font-size: 28px;
+				font-weight: bold;
+			}
+			#message {
+				font-size: 24px;
+				font-weight: bold;
+			}
+			span {
+				font-weight: bold;
+				color: #FF6C1B;
+			}
+    </style>
         <div class="flex-center position-ref full-height">
             <div class="content">
+						<img src='/images/logo.svg' />
                 <div class="title m-b-md">
                     @if($data['isLoggedIn'] == True)
-                        Succesfully Logged in.</br> You will be redirected automatically.
+                        <p id="title">Succesfully Logged in.</br> You will be redirected automatically.</p>
                     @else
-                        Login Failed.</br>
-                        Message: {{$data['message']}}</br>
-                        You will be redirected automatically.
+                        <p id="title">Login Failed.</p>
+                        <p id="message">{!! $data['message'] !!}</p>
+                        <p><b>You will be redirected automatically.</b><p>
                     @endif
-                    <a href="https://scumnation.io">Redirect me now</a>
                 </div>
             </div>
         </div>

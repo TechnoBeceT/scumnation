@@ -8,6 +8,8 @@ class Item extends Model
 {
     public $timestamps = false;
 
+    protected $table = 'items';
+
     /**
      * The attributes that are mass assignable.
      *

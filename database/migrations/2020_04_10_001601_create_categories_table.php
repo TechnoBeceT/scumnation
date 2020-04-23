@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Trading\Category;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->unsignedBigInteger('category_type');
             $table->string('category_name');
             $table->string('slug');
+            $table->string('content')->default(Category::ITEM);
             $table->foreign('category_type')->references('id')->on('category_types');
         });
     }

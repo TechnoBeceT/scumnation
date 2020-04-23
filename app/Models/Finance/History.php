@@ -2,7 +2,9 @@
 
 namespace App\Models\Finance;
 
+use App\Models\Trading\Sale;
 use App\Models\Users\User;
+use App\Transformers\HistoryTransformer;
 use Illuminate\Database\Eloquent\Model;
 
 class History extends Model
@@ -10,12 +12,13 @@ class History extends Model
     const KILL      = 'Kill';
     const DEATH     = 'Death';
     const PURCHASE  = 'Purchase';
-    const ORDER     = 'Order';
+    const SALE      = 'Sale';
+    const BOUNTY    = 'Bounty';
     const PLAYTIME  = 'Playtime';
     const DEDUCT    = 'Deduct';
     const ADD       = 'Add';
 
-    public $timestamps = false;
+    public $transformer = HistoryTransformer::class;
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +26,7 @@ class History extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'type', 'killer_id', 'victim_id', 'amount', 'action_type'
+        'user_id', 'type', 'killer_id', 'victim_id', 'amount', 'action_type', 'sale_id'
     ];
 
     public $hidden = ['id', 'user_id'];
@@ -56,5 +59,15 @@ class History extends Model
     public function victim()
     {
         return $this->belongsTo(User::class, 'victim_id');
+    }
+
+    /**
+     * Get the sale informations.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sale()
+    {
+        return $this->belongsTo(Sale::class, 'sale_id');
     }
 }

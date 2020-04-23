@@ -2,6 +2,7 @@
 
 namespace App\Transformers;
 
+use App\Models\Users\Statistic;
 use App\Models\Users\User;
 use League\Fractal\TransformerAbstract;
 
@@ -37,6 +38,8 @@ class UserTransformer extends TransformerAbstract
             'characterName'     => (string)$user->nickname,
             'steamName'         => (string)$user->steam_name,
             'avatar'            => (string)$user->avatar,
+            'steamID'           => (string)$user->steamid,
+            'steamURL'          => (string)$user->profile_url,
             'name'              => (string)$user->name,
             'surname'           => (string)$user->surname,
             'email'             => (string)$user->email,
@@ -45,8 +48,25 @@ class UserTransformer extends TransformerAbstract
             'lastLogout'        => (string)$user->statistics->last_logout,
             'totalDeaths'       => (integer)$user->statistics->total_deads,
             'totalKills'        => (integer)$user->statistics->total_kills,
-            'killDeathRatio'    => (float)$user->statistics->kd,
-            'eloStat'           => (float)$user->statistics->elo
+            'killDeathRatio'    => (integer)$user->statistics->kd,
+            'bounty'            => (integer)$user->bounty->amount,
+            'rank'              => (int)$user->rank,
+            'user_type'         => (string)$user->subscription ? $user->subscription->plan->tier : 'regular',
         ];
+    }
+
+    public static function originalAttribute($index)
+    {
+        $attributes = [
+            'characterName'     => 'nickname',
+            'steamName'         => 'steam_name',
+            'avatar'            => 'avatar',
+            'name'              => 'name',
+            'surname'           => 'surname',
+            'email'             => 'email',
+            'steamURL'          => 'profile_url',
+        ];
+
+        return isset($attributes[$index]) ? $attributes[$index] : null;
     }
 }

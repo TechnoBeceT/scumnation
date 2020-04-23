@@ -3,8 +3,10 @@
 namespace App\Models\Users;
 
 use App\Traits\Models\Finance;
+use App\Traits\Models\HasInventory;
 use App\Traits\Models\Statistics;
 use App\Traits\Models\UserTrait;
+use App\Transformers\GlobalUserTransformer;
 use App\Transformers\UserTransformer;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,9 +15,11 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, UserTrait, Finance, Statistics;
+    use Notifiable, UserTrait, Finance, Statistics, HasInventory;
 
+    protected $appends = ['rank'];
     public $transformer = UserTransformer::class;
+    public $globalUserTransformer = GlobalUserTransformer::class;
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +27,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'nickname', 'steam_name', 'avatar', 'steamid', 'scumid', 'name', 'surname', 'email',
+        'nickname', 'steam_name', 'avatar', 'steamid', 'scumid', 'name', 'surname', 'email', 'profile_url'
     ];
 
     /**
@@ -45,6 +49,16 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'steamid';
+    }
+
+    /**
     * Get the identifier that will be stored in the subject claim of the JWT.
     *
     * @return mixed
@@ -63,4 +77,11 @@ class User extends Authenticatable implements JWTSubject
      {
         return [];
      }
+
+     public function getRankAttribute(){
+        $collection = collect(Statistic::orderBy('elo', 'DESC')->get());
+        $data       = $collection->where('user_id', $this->id);
+        $value      = $data->keys()->first() + 1;
+        return $value;
+    }
 }

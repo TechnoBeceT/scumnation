@@ -3,6 +3,7 @@
 namespace App\Models\Logs;
 
 use App\Models\Users\User;
+use App\Transformers\KillTransformer;
 use Illuminate\Database\Eloquent\Model;
 
 class Kill extends Model
@@ -11,6 +12,7 @@ class Kill extends Model
     const NOT_EVENT = 'not_event';
 
     public $timestamps = false;
+    public $transformer = KillTransformer::class;
 
     /**
      * The attributes that are mass assignable.

@@ -31,6 +31,7 @@ class SteamLoginController extends AbstractSteamLoginController
             $steamUser->getUserInfo(); // retrieve and set user info pulled from steam
             $user->avatar = $steamUser->avatarFull;
             $user->steam_name = $steamUser->name;
+            $user->profile_url = $steamUser->profileUrl;
             $user->save();
         }
 
