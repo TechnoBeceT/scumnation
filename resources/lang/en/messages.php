@@ -47,4 +47,6 @@ return [
     'notEnoughItem'                 => 'You don\'t have enough amount this item',
     'deploymentFailed'              => 'something went wrong while deploying',
     'deploymentSuccess'             => 'Your items on the way',
+    'incorrectUser'                 => 'You are not right user.',
+    'wentWrongUpdateUser'           => 'Something went wrong while updating user.',
 ];

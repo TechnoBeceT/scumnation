@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\Users\User;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
@@ -28,8 +29,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        //
+        $loggedInUser = auth()->user();
+        if($user->id != $loggedInUser->id) {
+            return $this->errorResponse(__('messages.incorrectUser'), 400);
+        }
+        try {
+            $user->update([
+                'name'      => $request->name,
+                'surname'   => $request->surname,
+                'email'     => $request->email
+            ]);
+            return $this->returnLoggedInUser($user);
+        } catch (\Throwable $th) {
+            return $this->errorResponse(__('messages.wentWrongUpdateUser'), 400);
+        }
+        
+
     }
 }

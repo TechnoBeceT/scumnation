@@ -15,7 +15,7 @@ class CardController extends Controller
      */
     public function __construct(StripeController $stripeController)
     {
-        $this->middleware('auth');
+        $this->middleware('auth:api');
         $this->stripeController = $stripeController;
     }
     /**

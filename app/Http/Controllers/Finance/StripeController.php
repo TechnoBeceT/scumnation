@@ -207,6 +207,13 @@ class StripeController extends Controller
     // SUBSCRIPTONS
     //======================================================================
 
+    public function getSubscription($user, $subscription)
+    {
+        $stripeSubscription = \Stripe::subscriptions()->find($user->stripe_id, $subscription->subscription_id);
+        
+        return $stripeSubscription;
+    }
+
     public function makeSubscription($plan, $cardId, $coupon = null)
     {
         $user = $this->getUser();
