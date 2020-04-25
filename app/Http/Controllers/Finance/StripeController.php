@@ -45,6 +45,7 @@ class StripeController extends Controller
         ]);
 
         $user->stripe_id = $customer['id'];
+        $user->email = $token['email'];
         $user->save();
         return $customer;
     }
