@@ -36,11 +36,16 @@ class UserController extends Controller
             return $this->errorResponse(__('messages.incorrectUser'), 400);
         }
         try {
-            $user->update([
-                'name'      => $request->name,
-                'surname'   => $request->surname,
-                'email'     => $request->email
-            ]);
+            if($request->has('name')) {
+                $user->name = $request->name;
+            }
+            if($request->has('surname')) {
+                $user->surname = $request->surname;
+            }
+            if($request->has('email')) {
+                $user->email = $request->email;
+            }
+            $user->save();
             return $this->returnLoggedInUser($user);
         } catch (\Throwable $th) {
             return $this->errorResponse(__('messages.wentWrongUpdateUser'), 400);
