@@ -22,11 +22,11 @@ class StripeController extends Controller
     //-----------------------------------------------------
     // User Data
     //-----------------------------------------------------
-    private function getUser()
+    private function getUser($token = null)
     {
         $user = auth()->user();
         if ($user->stripe_id === null) {
-            $this->createCustomer($user);
+            $this->createCustomer($user, $token);
             $user = auth()->user();
         }
 
@@ -37,12 +37,13 @@ class StripeController extends Controller
     // CUSTOMER
     //======================================================================
 
-    public function createCustomer(User $user)
+    public function createCustomer(User $user, $token)
     {
         $customer = \Stripe::customers()->create([
-            'name' => $user->fullname(),
-            'email' => $user->email,
+            'name' => $token['card']['name'],
+            'email' => $token['email'],
         ]);
+
         $user->stripe_id = $customer['id'];
         $user->save();
         return $customer;
@@ -54,9 +55,9 @@ class StripeController extends Controller
 
     public function createCard($token)
     {
-        $user = $this->getUser();
+        $user = $this->getUser($token);
         try {
-            $stripeCard = \Stripe::cards()->create($user->stripe_id, $token);
+            $stripeCard = \Stripe::cards()->create($user->stripe_id, $token['id']);
         } catch (ServerErrorException $e) {
             abort(400, $e->getMessage());
         }catch (CardErrorException $e) {
