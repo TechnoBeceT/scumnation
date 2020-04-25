@@ -205,17 +205,17 @@ class SalesTableSeeder extends Seeder
 
 					// cars
 
-						['item_id' => 846, 'price' => 750.00, 'daily_limit' => 1],  //Pickup Black
-						['item_id' => 847, 'price' => 750.00, 'daily_limit' => 1],  //Pickup Blue
-						['item_id' => 850, 'price' => 750.00, 'daily_limit' => 1],  //Pickup Forest Camo
-						['item_id' => 845, 'price' => 750.00, 'daily_limit' => 1],  //Pickup Orange
-						['item_id' => 848, 'price' => 750.00, 'daily_limit' => 1],  //Pickup Red
-						['item_id' => 851, 'price' => 750.00, 'daily_limit' => 1],  //Pickup Red/White
-						['item_id' => 849, 'price' => 750.00, 'daily_limit' => 1],  //Pickup White
-						['item_id' => 853, 'price' => 500.00, 'daily_limit' => 1],  //Quad Blue
-						['item_id' => 855, 'price' => 500.00, 'daily_limit' => 1],  //Quad Forest Camo
-						['item_id' => 854, 'price' => 500.00, 'daily_limit' => 1],  //Quad Red
-						['item_id' => 852, 'price' => 500.00, 'daily_limit' => 1],  //Quad Yellow
+						['item_id' => 846, 'price' => 1250.00, 'daily_limit' => 1],  //Pickup Black
+						['item_id' => 847, 'price' => 1250.00, 'daily_limit' => 1],  //Pickup Blue
+						['item_id' => 850, 'price' => 1250.00, 'daily_limit' => 1],  //Pickup Forest Camo
+						['item_id' => 845, 'price' => 1250.00, 'daily_limit' => 1],  //Pickup Orange
+						['item_id' => 848, 'price' => 1250.00, 'daily_limit' => 1],  //Pickup Red
+						['item_id' => 851, 'price' => 1250.00, 'daily_limit' => 1],  //Pickup Red/White
+						['item_id' => 849, 'price' => 1250.00, 'daily_limit' => 1],  //Pickup White
+						['item_id' => 853, 'price' => 600.00, 'daily_limit' => 1],  //Quad Blue
+						['item_id' => 855, 'price' => 600.00, 'daily_limit' => 1],  //Quad Forest Camo
+						['item_id' => 854, 'price' => 600.00, 'daily_limit' => 1],  //Quad Red
+						['item_id' => 852, 'price' => 600.00, 'daily_limit' => 1],  //Quad Yellow
 						['item_id' => 844, 'price' => 1000.00, 'daily_limit' => 1], //SUV Black
 						['item_id' => 840, 'price' => 1000.00, 'daily_limit' => 1], //SUV Blue
 						['item_id' => 841, 'price' => 1000.00, 'daily_limit' => 1], //SUV Orange
