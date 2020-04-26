@@ -277,8 +277,14 @@ class LogController extends Controller
                 
                 if($victim->rank == 1 || $victim->rank == 2 || $victim->rank == 3 || $victim->bounty->amount >= 1) {
                     $bounty = $victim->bounty->amount;
-                    if($victim->rank == 1 || $victim->rank == 2 || $victim->rank == 3) {
+                    if($victim->rank == 1) {
+                        $bounty = ($victim->bounty->amount + 200);
+                    }
+                    if($victim->rank == 2) {
                         $bounty = ($victim->bounty->amount + 100);
+                    }
+                    if($victim->rank == 3) {
+                        $bounty = ($victim->bounty->amount + 50);
                     }
                     if($bounty >= 1) {
                         $killer->addCredits($bounty);

@@ -58,7 +58,7 @@ class PackContentsTableSeeder extends Seeder
             ['pack_id' => 5, 'item_id' => 96, 'amount' => 1],  // AK-47
             ['pack_id' => 5, 'item_id' => 120, 'amount' => 1], // AK15 Suppressor
             ['pack_id' => 5, 'item_id' => 137, 'amount' => 1], // RIS Adapter
-            ['pack_id' => 5, 'item_id' => 150, 'amount' => 1], // ACOG
+            ['pack_id' => 5, 'item_id' => 150, 'amount' => 1], // Red Dot Sight
             ['pack_id' => 5, 'item_id' => 108, 'amount' => 3], // AK-47 Magazine
             ['pack_id' => 5, 'item_id' => 889, 'amount' => 3], // 7.62x39mm Ammunition Box
 			['pack_id' => 5, 'item_id' => 672, 'amount' => 2], // Beef Stew MRE
@@ -69,7 +69,7 @@ class PackContentsTableSeeder extends Seeder
             ['pack_id' => 6, 'item_id' => 97, 'amount' => 1],  // AK-47 Engraved
             ['pack_id' => 6, 'item_id' => 120, 'amount' => 1], // AK15 Suppressor
             ['pack_id' => 6, 'item_id' => 137, 'amount' => 1], // RIS Adapter
-            ['pack_id' => 6, 'item_id' => 150, 'amount' => 1], // ACOG
+            ['pack_id' => 6, 'item_id' => 147, 'amount' => 1], // Red Dot Sight
             ['pack_id' => 6, 'item_id' => 108, 'amount' => 3], // AK-47 Magazine
             ['pack_id' => 6, 'item_id' => 889, 'amount' => 3], // 7.62x39mm Ammunition Box
 			['pack_id' => 6, 'item_id' => 672, 'amount' => 2], // Beef Stew MRE
@@ -80,7 +80,7 @@ class PackContentsTableSeeder extends Seeder
             ['pack_id' => 7, 'item_id' => 98, 'amount' => 1],  // AKM
             ['pack_id' => 7, 'item_id' => 120, 'amount' => 1], // AK15 Suppressor
             ['pack_id' => 7, 'item_id' => 137, 'amount' => 1], // RIS Adapter
-            ['pack_id' => 7, 'item_id' => 150, 'amount' => 1], // ACOG
+            ['pack_id' => 7, 'item_id' => 147, 'amount' => 1], // Red Dot Sight
             ['pack_id' => 7, 'item_id' => 108, 'amount' => 3], // AK-47 Magazine
             ['pack_id' => 7, 'item_id' => 889, 'amount' => 3], // 7.62x39mm Ammunition Box
 			['pack_id' => 7, 'item_id' => 672, 'amount' => 2], // Beef Stew MRE
@@ -90,7 +90,7 @@ class PackContentsTableSeeder extends Seeder
             //MK18 PACK
             ['pack_id' => 8, 'item_id' => 102, 'amount' => 1], // MK18
             ['pack_id' => 8, 'item_id' => 131, 'amount' => 1], // MK18 Suppressor
-            ['pack_id' => 8, 'item_id' => 150, 'amount' => 1], // ACOG
+            ['pack_id' => 8, 'item_id' => 147, 'amount' => 1], // Red Dot Sight
             ['pack_id' => 8, 'item_id' => 115, 'amount' => 3], // M16 Magazine
             ['pack_id' => 8, 'item_id' => 900, 'amount' => 3], // 5.56x45mm Ammunition Box
 			['pack_id' => 8, 'item_id' => 672, 'amount' => 2], // Beef Stew MRE
@@ -100,7 +100,7 @@ class PackContentsTableSeeder extends Seeder
             //M16A4 PACK
             ['pack_id' => 9, 'item_id' => 101, 'amount' => 1], // M16A4
             ['pack_id' => 9, 'item_id' => 131, 'amount' => 1], // MK18 Suppressor
-            ['pack_id' => 9, 'item_id' => 150, 'amount' => 1], // ACOG
+            ['pack_id' => 9, 'item_id' => 147, 'amount' => 1], // Red Dot Sight
             ['pack_id' => 9, 'item_id' => 115, 'amount' => 3], // M16 Magazine
             ['pack_id' => 9, 'item_id' => 900, 'amount' => 3], // 5.56x45mm Ammunition Box
 			['pack_id' => 9, 'item_id' => 672, 'amount' => 2], // Beef Stew MRE

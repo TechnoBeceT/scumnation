@@ -131,7 +131,7 @@ class ItemsTableSeeder extends Seeder
 			['category_id' => 10, 'item_name' => 'M82A1 Magazine', 'spawn_code' => '#SpawnItem BP_Magazine_M82A1', 'item_image' => url('/images/items/BP_Magazine_M82A1.png')],
 			['category_id' => 10, 'item_name' => 'M9 Magazine', 'spawn_code' => '#SpawnItem BP_Magazine_M9', 'item_image' => url('/images/items/BP_Magazine_M9.png')],
 			['category_id' => 10, 'item_name' => 'MP5 Magazine', 'spawn_code' => '#SpawnItem BP_Magazine_MP5', 'item_image' => url('/images/items/BP_Magazine_MP5.png')],
-			['category_id' => 10, 'item_name' => 'SVD Magazine', 'spawn_code' => '#SpawnItem BP_Magazine_SVD_Dagunov', 'item_image' => url('/images/items/BP_Magazine_SVD_Dagunov.png')],
+			['category_id' => 10, 'item_name' => 'SVD Magazine', 'spawn_code' => '#SpawnItem BP_Magazine_SVD_Dragunov', 'item_image' => url('/images/items/BP_Magazine_SVD_Dagunov.png')],
 			['category_id' => 11, 'item_name' => 'AK15 Suppressor', 'spawn_code' => '#SpawnItem BP_WeaponSuppressor_AK15', 'item_image' => url('/images/items/BP_WeaponSuppressor_AK15.png')],
 			['category_id' => 11, 'item_name' => 'M9 Suppressor', 'spawn_code' => '#SpawnItem BP_WeaponSuppressor_Handgun', 'item_image' => url('/images/items/BP_WeaponSuppressor_Handgun.png')],
 			['category_id' => 11, 'item_name' => 'Improvised Bottle Suppressor Grey', 'spawn_code' => '#SpawnItem BPC_WeaponSuppressor_ImprovisedBottle_Grey', 'item_image' => url('/images/items/BPC_WeaponSuppressor_ImprovisedBottle_Grey.png')],
