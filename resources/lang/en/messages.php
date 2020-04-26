@@ -49,7 +49,7 @@ return [
     'deploymentSuccess'             => 'Your items on the way',
     'incorrectUser'                 => 'You are not right user.',
     'wentWrongUpdateUser'           => 'Something went wrong while updating user.',
-    'alreadyClaimed'                => 'You are already claim your starter pack',
-    'claimSuccess'                  => 'Your items added your inventory.',
-    'claimFailed'                   => 'Something went wrong while claiming your items.'
+    'alreadyClaimed'                => 'You haved already claimed your starter pack',
+    'claimSuccess'                  => 'Your starter pack has been added to your inventory.',
+    'claimFailed'                   => 'Something went wrong while claiming your starter pack.'
 ];
