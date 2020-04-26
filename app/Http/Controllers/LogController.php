@@ -11,6 +11,7 @@ use App\Models\Logs\Kill;
 use App\Models\Logs\Login;
 use App\Models\Users\Statistic;
 use App\Models\Users\User;
+use App\Notifications\BountyRewardNotification;
 use App\Notifications\DeathNotification;
 use App\Notifications\LoginNotification;
 use App\Traits\ApiResponser;
@@ -75,7 +76,7 @@ class LogController extends Controller
                         $newUserAvatar->profile_url = $player->profileurl;
                         $newUserAvatar->save();
                     }
-                    $user->notify(new LoginNotification($user));
+                    $user->notify(new LoginNotification($newUserAvatar));
                     //Create New Login Log
                     Login::create([
                         'user_id'   => $user->id,
@@ -116,7 +117,7 @@ class LogController extends Controller
                     $checkUser->statistics()->update([
                         'last_login' => $fullDate,
                     ]);
-                    $checkUser->notify(new LoginNotification($checkUser));
+                    $checkUser->notify(new LoginNotification($newUserAvatar));
                     //Create New Login Log
                     Login::create([
                         'user_id' => $checkUser->id,
@@ -273,29 +274,25 @@ class LogController extends Controller
                         'amount'        => 10
                     ]);
                 }
-
-                if ($victim->bounty->amount >= 1) {
-                    $killer->addCredits($victim->bounty->amount);
-                    $victim->clearBounty();
-                    History::create([
-                        'user_id'       => $killer->id,
-                        'type'          => History::BOUNTY,
-                        'killer_id'     => $killer->id,
-                        'victim_id'     => $victim->id,
-                        'action_type'   => History::ADD,
-                        'amount'        => $victim->bounty->amount
-                    ]);
-                }
-                if($victim->rank == 1 || $victim->rank == 2 || $victim->rank == 3) {
-                    $killer->addCredits(100);
-                    History::create([
-                        'user_id'       => $killer->id,
-                        'type'          => History::BOUNTY,
-                        'killer_id'     => $killer->id,
-                        'victim_id'     => $victim->id,
-                        'action_type'   => History::ADD,
-                        'amount'        => 100
-                    ]);
+                
+                if($victim->rank == 1 || $victim->rank == 2 || $victim->rank == 3 || $victim->bounty->amount >= 1) {
+                    $bounty = $victim->bounty->amount;
+                    if($victim->rank == 1 || $victim->rank == 2 || $victim->rank == 3) {
+                        $bounty = ($victim->bounty->amount + 100);
+                    }
+                    if($bounty >= 1) {
+                        $killer->addCredits($bounty);
+                        $victim->clearBounty();
+                        History::create([
+                            'user_id'       => $killer->id,
+                            'type'          => History::BOUNTY,
+                            'killer_id'     => $killer->id,
+                            'victim_id'     => $victim->id,
+                            'action_type'   => History::ADD,
+                            'amount'        => $bounty
+                        ]);
+                        $killer->notify(new BountyRewardNotification($killer, $victim, $bounty));
+                    }
                 }
                 $killer->addKill(1);
                 $victim->addDeath(1);

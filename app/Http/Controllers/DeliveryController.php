@@ -19,7 +19,7 @@ class DeliveryController extends Controller
     public function store(DeliveryRequest $request)
     {
         $user = auth()->user();
-        //$this->validateDeliveryRequest($request, $user);
+        $this->validateDeliveryRequest($request, $user);
         try {
             $commands = [];
             foreach($request->data as $deliver) {

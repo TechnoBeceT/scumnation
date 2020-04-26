@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PlaceBountyRequest;
 use App\Models\Finance\History;
 use App\Models\Users\User;
+use App\Notifications\BountyNotification;
 use App\Traits\Controllers\BountyControllerHelper;
 
 class BountyController extends Controller
@@ -42,6 +43,7 @@ class BountyController extends Controller
                 'action_type'   => History::DEDUCT,
                 'amount'        => $request->bounty
             ]);
+            $loggedInUser->notify(new BountyNotification($loggedInUser, $user, $request->bounty));
             return $this->successResponse(['message' => __('messages.bountySetSuccessfully', ['value' => $user->nickname]), 'credits' => $loggedInUser->credit->amount], 200);
         } catch (\Throwable $th) {
             return $this->errorResponse(__('messages.bountySetFailed'), 401);
