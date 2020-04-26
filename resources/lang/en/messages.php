@@ -34,6 +34,7 @@ return [
     'subscribeFailed'               => 'Subscription failed.',
     'typedZeroOrLess'               => 'You cannot have a value of zero or below.',
     'cancelledSubscribe'            => 'Subscription successfully cancelled.',
+    'cancelledSubscribeFailed'      => 'There was an error cancelling your subscription.',
     'usersDoesntMatch'              => 'Error with connecting correct users',
     'youAreNotSubscriber'           => 'You are not a subscribed user.',
     'youDontOwnThisItem'            => 'You do not own this item.',

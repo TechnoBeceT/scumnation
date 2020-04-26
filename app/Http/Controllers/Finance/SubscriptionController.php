@@ -52,8 +52,10 @@ class SubscriptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $subscription)
     {
+        $user = $subscription;
+
         if($user->id != auth()->user()->id) {
             return $this->errorResponse(__('messages.usersDoesntMatch'), 400);
         }
@@ -62,13 +64,13 @@ class SubscriptionController extends Controller
         }
         try {
             $this->stripeController->cancelSubscription($user->subscription);
-            $user->subscription()->update([
-                'cancelled' => true
-            ]);
-        } catch (\Throwable $th) {
-            return $this->errorResponse(__('messages.cancelledSubscribe'), 400);
-        }
-        
 
+            $user->subscription()->update([
+                'cancelled' => true,
+            ]);
+            return $this->successResponse(['message' => __('messages.cancelledSubscribe')], 200);
+        } catch (\Throwable $th) {
+            return $this->errorResponse(__('messages.cancelledSubscribeFailed'), 400);
+        }
     }
 }
