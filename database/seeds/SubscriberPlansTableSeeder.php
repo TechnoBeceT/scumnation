@@ -15,11 +15,11 @@ class SubscriberPlansTableSeeder extends Seeder
     {
 
 
-        $stripeController = new StripeController;
-        $stripeController->deletePlan('vip1');
-        $stripeController->deletePlan('vip2');
-        $stripeController->deletePlan('vip3');
-        $stripeController->deletePlan('vip4');
+        // $stripeController = new StripeController;
+        // $stripeController->deletePlan('vip1');
+        // $stripeController->deletePlan('vip2');
+        // $stripeController->deletePlan('vip3');
+        // $stripeController->deletePlan('vip4');
         $plans = [
 			['name' => 'Bambi', 'price' => 5.00, 'tier' => 'vip1', 'description' => 'Bambi Package'],
 			['name' => 'Scum Bag', 'price' => 10.00, 'tier' => 'vip2', 'description' => 'Scum Bag Package'],
