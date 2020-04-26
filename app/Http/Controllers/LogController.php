@@ -49,6 +49,10 @@ class LogController extends Controller
             //Searching for User with SteamID in Users Table
             $checkUser = User::where('steamid', $steamID)->first();
 
+            if ($steamID == '76561199043794286') {
+                return $this->errorResponse(['status' => 'Failed', 'response' => 'Bot User'], 500); 
+            }
+
             //If checkUser returning Null
             if (is_null($checkUser)) {
                 try {
@@ -486,6 +490,9 @@ class LogController extends Controller
             try {
                 //Getting admin
                 $admin = User::where('steamid', $adminSteamID)->first();
+                if (is_null($admin)) {
+                    return $this->errorResponse(['status' => 'Failed', 'response' => 'User not found'], 404);
+                }
                 Admin::create([
                     'admin_id'  => $admin->id,
                     'command'   => $adminCommand,

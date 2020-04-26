@@ -31,7 +31,7 @@ return [
     ],
 
     'stripe' => [
-        'secret' => 'sk_test_9yYXwsiCrjv8xos9Ni5mrogx00zHgSYRMo',
+        'secret' => env('STRIPE_TOKEN'),
     ],
 
     'discord' => [
