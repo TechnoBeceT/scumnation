@@ -68,5 +68,6 @@ Route::group([ 'middleware' => 'api'], function ($router) {
         Route::resource('user/inventory', 'InventoryController', ['only' => 'index']);
         Route::resource('marketplace', 'MarketplaceController', ['only' => ['index', 'store']]);
         Route::resource('user/delivery', 'DeliveryController', ['only' => 'store']);
+        Route::resource('user/starterpack', 'StarterPackController', ['only' => 'index']);
     });
 });

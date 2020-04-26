@@ -174,6 +174,30 @@ class PackContentsTableSeeder extends Seeder
             ['pack_id' => 16, 'item_id' => 834, 'amount' => 4],  // Tool Box 100 Uses
             ['pack_id' => 16, 'item_id' => 32, 'amount' => 2],  // Axe
             ['pack_id' => 16, 'item_id' => 48, 'amount' => 2],  // Shovel
+
+            //Starter Pack
+            ['pack_id' => 17, 'item_id' => 722, 'amount' => 1],  // Emergency Bandage Pack
+            ['pack_id' => 17, 'item_id' => 752, 'amount' => 1],  // Adrenaline Shot
+            ['pack_id' => 17, 'item_id' => 832, 'amount' => 1],  // Sewing Kit 30 Uses
+            ['pack_id' => 17, 'item_id' => 834, 'amount' => 1],  // Tool Box 100 Uses
+            ['pack_id' => 17, 'item_id' => 32, 'amount' => 1],  // Axe
+            ['pack_id' => 17, 'item_id' => 48, 'amount' => 1],  // Shovel
+            ['pack_id' => 17, 'item_id' => 96, 'amount' => 1],  // AK-47
+            ['pack_id' => 17, 'item_id' => 120, 'amount' => 1], // AK15 Suppressor
+            ['pack_id' => 17, 'item_id' => 137, 'amount' => 1], // RIS Adapter
+            ['pack_id' => 17, 'item_id' => 150, 'amount' => 1], // ACOG
+            ['pack_id' => 17, 'item_id' => 108, 'amount' => 3], // AK-47 Magazine
+            ['pack_id' => 17, 'item_id' => 889, 'amount' => 3], // 7.62x39mm Ammunition Box
+			['pack_id' => 17, 'item_id' => 672, 'amount' => 2], // Beef Stew MRE
+			['pack_id' => 17, 'item_id' => 704, 'amount' => 1], // Water Bottle
+            ['pack_id' => 17, 'item_id' => 814, 'amount' => 1], // Advanced Compass
+            ['pack_id' => 17, 'item_id' => 173, 'amount' => 1],  // Combat Helmet Black
+            ['pack_id' => 17, 'item_id' => 295, 'amount' => 1],  // Armor Tactical Vest Black
+            ['pack_id' => 17, 'item_id' => 468, 'amount' => 1],  // Tactical Gloves Black
+            ['pack_id' => 17, 'item_id' => 528, 'amount' => 1],  // Work Pants Black
+            ['pack_id' => 17, 'item_id' => 544, 'amount' => 1],  // Hiking Boots Black
+            ['pack_id' => 17, 'item_id' => 435, 'amount' => 1],  // Tactical Sweater Black
+            ['pack_id' => 17, 'item_id' => 323, 'amount' => 1],  // Assault Backpack Black
         ];
         foreach ($packContents as $key => $packContent) {
 			PackContent::create($packContent);

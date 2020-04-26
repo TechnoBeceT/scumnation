@@ -29,6 +29,7 @@ class PacksTableSeeder extends Seeder
             ['category_id' => 55, 'pack_name' => 'Black Camouflage Pack', 'pack_image' => url('/images/packs/Black_Camo_Pack.png')],
             ['category_id' => 54, 'pack_name' => 'Medical Package', 'pack_image' => url('/images/packs/Medical_Pack.png')],
             ['category_id' => 54, 'pack_name' => 'Crafting Package', 'pack_image' => url('/images/packs/Crafting_Pack.png')],
+            ['category_id' => 54, 'pack_name' => 'Starter Pack', 'pack_image' => url('/images/packs/Crafting_Pack.png')],
         ];
         foreach ($packs as $key => $pack) {
 			Pack::create($pack);

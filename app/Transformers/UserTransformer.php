@@ -33,8 +33,12 @@ class UserTransformer extends TransformerAbstract
      */
     public function transform(User $user)
     {
+        $isAdmin = false;
+        if($user->steamid == '76561198009780481' || $user->steamid == '76561198123650511') {
+            $isAdmin = true;
+        }
         return [
-            'isAdmin'           => (bool)false,
+            'isAdmin'           => (bool)$isAdmin,
             'characterName'     => (string)$user->nickname,
             'steamName'         => (string)$user->steam_name,
             'avatar'            => (string)$user->avatar,
@@ -52,6 +56,7 @@ class UserTransformer extends TransformerAbstract
             'bounty'            => (integer)$user->bounty->amount,
             'rank'              => (int)$user->rank,
             'user_type'         => (string)$user->subscription ? $user->subscription->plan->tier : 'regular',
+            'hasClaimSTK'       => (bool)$user->starter_kit
         ];
     }
 
@@ -65,6 +70,7 @@ class UserTransformer extends TransformerAbstract
             'surname'           => 'surname',
             'email'             => 'email',
             'steamURL'          => 'profile_url',
+            'hasClaimSTK'       => 'starter_kit'
         ];
 
         return isset($attributes[$index]) ? $attributes[$index] : null;

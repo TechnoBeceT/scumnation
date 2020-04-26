@@ -12,6 +12,16 @@ class BountyController extends Controller
     use BountyControllerHelper;
 
     /**
+    * Create a new PostController instance.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  App\Http\Requests\PlaceBountyRequest  $request

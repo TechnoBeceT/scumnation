@@ -33,9 +33,13 @@ class GlobalUserTransformer extends TransformerAbstract
      */
     public function transform(User $user)
     {
+        $isAdmin = false;
+        if($user->steamid == '76561198009780481' || $user->steamid == '76561198123650511') {
+            $isAdmin = true;
+        }
         $kills = Kill::where('killer_id', $user->id)->orWhere('victim_id', $user->id)->orderBy('date', 'desc')->limit(20)->get();
         return [
-            'isAdmin'           => (bool)false,
+            'isAdmin'           => (bool)$isAdmin,
             'characterName'     => (string)$user->nickname,
             'steamName'         => (string)$user->steam_name,
             'avatar'            => (string)$user->avatar,
