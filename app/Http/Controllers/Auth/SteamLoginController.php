@@ -26,7 +26,7 @@ class SteamLoginController extends AbstractSteamLoginController
             //return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.userNotFound')], 200);
             $data = ['isLoggedIn' => false, 'message' => __('messages.userNotFound')];
             return response()->view('login', compact('data'), 200)
-                    ->header("Refresh", "5;url=https://scumnation.io");
+                    ->header("Refresh", "5;url=https://scumnation.eu");
         }else {
             $steamUser->getUserInfo(); // retrieve and set user info pulled from steam
             $user->avatar = $steamUser->avatarFull;
@@ -41,13 +41,13 @@ class SteamLoginController extends AbstractSteamLoginController
                 //return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.invalidCredentials')], 200);
                 $data = ['isLoggedIn' => false, 'message' => __('messages.invalidCredentials')];
                 return response()->view('login', compact('data'), 200)
-                    ->header("Refresh", "5;url=https://scumnation.io");
+                    ->header("Refresh", "5;url=https://scumnation.eu");
             }
         } catch (JWTException $e) {
             //return $this->successResponse(['isLoggedIn' => false, 'message' => __('messages.notCreateToken')], 200);
             $data = ['isLoggedIn' => false, 'message' => __('messages.notCreateToken')];
             return response()->view('login', compact('data'), 200)
-                ->header("Refresh", "5;url=https://scumnation.io");
+                ->header("Refresh", "5;url=https://scumnation.eu");
         }
         //Create Cookie With Token
         $cookie = Cookie::queue(Cookie::make('token', $token, config('jwt.ttl'), '/', null, true, true));
@@ -55,7 +55,7 @@ class SteamLoginController extends AbstractSteamLoginController
         //return $this->returnLoggedInUser($user);
         $data = ['isLoggedIn' => true, 'message' => __('messages.notCreateToken')];
         return response()->view('login', compact('data'), 200)
-            ->header("Refresh", "5;url=https://scumnation.io");
+            ->header("Refresh", "5;url=https://scumnation.eu");
     }
 
     /**
