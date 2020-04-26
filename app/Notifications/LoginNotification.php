@@ -44,6 +44,6 @@ class LoginNotification extends Notification
      */
     public function toDiscord($notifiable)
     {
-        return DiscordMessage::create("!scumnation_command Welcome to our server, {$this->user->nickname}. Hope you have fun.");
+        return DiscordMessage::create("!scumnation_command {$this->user->nickname} - Welcome to Scum Nation.");
     }
 }
